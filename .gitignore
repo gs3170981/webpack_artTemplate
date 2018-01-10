@@ -1,0 +1,5 @@
+.project
+node_modules/nanomatch/node_modules/
+node_modules/
+dist/
+yarn.lock
