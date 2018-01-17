@@ -1,0 +1,58 @@
+<style type="text/css">
+    .mask {
+        height: 75.6%;
+        overflow: hidden;
+        background: rgba(227, 235, 226, .1);
+        position: relative;
+        position: fixed;
+        width: 85.7%;
+    }
+
+    .mask .loading {
+        color: rgba(0, 0, 0, .5);
+        cursor: default;
+        margin: 20% 0 0 49%;
+        width: auto;
+    }
+</style>
+{{if (!data)}}
+<div class="mask">
+    <i class="fa fa-3x fa-spinner fa-pulse loading"></i>
+</div>
+{{else}}
+<table class="layui-table">
+    <thead>
+        <tr>
+            <th rowspan="2">日期</th>
+            <th colspan="6">所需类型</th>
+            <th rowspan="2">总计</th>
+            <th rowspan="2">操作</th>
+        </tr>
+        <tr>
+            <th>住宿</th>
+            <th>特产</th>
+            <th>餐饮</th>
+            <th>自营店</th>
+            <th>vr体验</th>
+            <th>其他</th>
+        </tr>
+    </thead>
+    <tbody id="table-body">
+        {{each data as t i}}
+        <tr>
+            <td>{{t.date}}</td>
+            <td>{{t.hotel}}</td>
+            <td>{{t.special}}</td>
+            <td>{{t.restaurant || ''}}</td>
+            <td>{{t.self_support || ''}}</td>
+            <td>{{t.vr || ''}}</td>
+            <td>{{t.other || ''}}</td>
+            <td>{{t.total}}</td>
+            <td class="edit">
+                <i class="fa fa-edit edit-btn edit edit_btn" data-timer="{{t.date}}" data-id="{{i}}"></i>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/if}}

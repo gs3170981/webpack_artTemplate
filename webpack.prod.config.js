@@ -22,7 +22,7 @@ module.exports = {
       comments: false
     }),
     new HtmlWebpackPlugin({
-      template: resolve(__dirname, './src/index.art'),
+      template: resolve(__dirname, './src/index.html'),
       minify: {
         collapseBooleanAttributes: true,
         collapseWhitespace: true,

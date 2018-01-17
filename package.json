@@ -17,5 +17,8 @@
     "html-webpack-plugin": "^2.28.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.10.1"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
   }
 }

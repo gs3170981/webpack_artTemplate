@@ -1,0 +1,97 @@
+<style type="text/css">
+  .mask {
+    height: 75.6%;
+    overflow: hidden;
+    background: rgba(227, 235, 226, .1);
+    position: relative;
+    position: fixed;
+    width: 85.7%;
+  }
+  
+  .mask .loading {
+    color: rgba(0, 0, 0, .5);
+    cursor: default;
+    margin: 20% 0 0 49%;
+    width: auto;
+  }
+</style>
+{{if (!data)}}
+<div class="mask">
+  <i class="fa fa-3x fa-spinner fa-pulse loading"></i>
+</div>
+{{else}} {{if (index === '0')}}
+<table id="content-table" class="layui-table" style="margin-top: 0;">
+  <colgroup>
+    <col width="5%">
+    <col width="19%">
+    <col width="19%">
+    <col width="19%">
+    <col width="19%">
+    <col width="19%">
+  </colgroup>
+  <thead style="display: none;">
+    <!--隐藏是可以导出excel的-->
+    <tr>
+      <th>序号</th>
+      <th>发票代码</th>
+      <th>发票号码</th>
+      <th>电子票务流水号</th>
+      <th>使用时间</th>
+      <th>票面金额</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{each data as t i}}
+    <tr>
+      <td>{{i}}</td>
+      <td>{{t.invoiceCode}}</td>
+      <td>{{t.invoiceNum}}</td>
+      <td>{{t.ticketNo}}</td>
+      <td>{{t.useTime}}</td>
+      <td>{{t.price}}</td>
+    </tr>
+    {{/each}}
+    <tr>
+      <td>合计</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{allCount_sum}}</td>
+    </tr>
+  </tbody>
+</table>
+{{else}}
+<table id="content-table" class="layui-table" style="margin-top: 0;">
+  <colgroup>
+    <col width="4%">
+    <col width="32%">
+    <col width="32%">
+    <col width="32%">
+  </colgroup>
+  <thead style="display: none;">
+    <tr>
+      <th>序号</th>
+      <th>电商系统销售流水号</th>
+      <th>使用时间</th>
+      <th>销售订单金额</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{each data as t i}}
+    <tr>
+      <td>{{i}}</td>
+      <td>{{t.orderNo}}</td>
+      <td>{{t.time}}</td>
+      <td>{{t.price}}</td>
+    </tr>
+    {{/each}}
+    <tr>
+      <td>合计</td>
+      <td></td>
+      <td></td>
+      <td>{{allCount_sum}}</td>
+    </tr>
+  </tbody>
+</table>
+{{/if}} {{/if}}

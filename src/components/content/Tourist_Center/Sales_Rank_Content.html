@@ -1,0 +1,55 @@
+<style type="text/css">
+    .sales-rank-tab {
+        overflow-y: auto;
+        width: 100%;
+        max-height: 6rem;
+        margin: .2rem 0;
+    }
+    .mask {
+        height: 75.6%;
+        overflow: hidden;
+        background: rgba(227, 235, 226, .1);
+        position: relative;
+        position: fixed;
+        width: 85.7%;
+    }
+
+    .mask .loading {
+        color: rgba(0, 0, 0, .5);
+        cursor: default;
+        margin: 20% 0 0 49%;
+        width: auto;
+    }
+</style>
+{{if (!data)}}
+<div class="mask">
+    <i class="fa fa-3x fa-spinner fa-pulse loading"></i>
+</div>
+{{else}}
+    <table class="layui-table" id="content-table">
+        <thead>
+        <tr>
+            <th width="10%">序号</th>
+            <th width="10%">姓名</th>
+            <th width="40%">散客门票销售张数</th>
+            <th width="40%">散客门票销售总金额</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each data as t i}}
+        <tr>
+            <td width="10%">{{i}}</td>
+            <td width="10%">{{t.name}}</td>
+            <td width="40%">{{t.count}}</td>
+            <td width="40%">{{t.total}}</td>
+        </tr>
+        {{/each}}
+        <tr>
+            <td width="10%">合计</td>
+            <td width="10%"></td>
+            <td width="40%">{{sumCount}}</td>
+            <td width="40%">{{sumMoney}}</td>
+        </tr>
+        </tbody>
+    </table>
+{{/if}}

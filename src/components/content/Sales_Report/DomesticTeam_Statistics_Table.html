@@ -1,0 +1,81 @@
+<style type="text/css">
+    .mask {
+        height: 75.6%;
+        overflow: hidden;
+        background: rgba(227, 235, 226, .1);
+        position: relative;
+        position: fixed;
+        width: 85.7%;
+    }
+
+    .mask .loading {
+        color: rgba(0, 0, 0, .5);
+        cursor: default;
+        margin: 20% 0 0 49%;
+        width: auto;
+    }
+</style>
+{{if (!data)}}
+<div class="mask">
+    <i class="fa fa-3x fa-spinner fa-pulse loading"></i>
+</div>
+{{else}}
+<table class="layui-table" id="content-table" style="margin-top: 0;">
+    <colgroup>
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+        <col width="7.14%">
+    </colgroup>
+    <thead style="display:none;">
+        <tr>
+            <th>序号</th>
+            <th>省份</th>
+            <th>金额</th>
+            <th>去年金额</th>
+            <th>增长率</th>
+            <th>排名</th>
+            <th>去年排名</th>
+            <th>占比</th>
+            <th>去年占比</th>
+            <th>团队数</th>
+            <th>去年团队数</th>
+            <th>人数</th>
+            <th>去年人数</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="table-body">
+        {{each data as t i}}
+        <tr>
+            <td>{{i+1}}</td>
+            <td>{{t.item}}</td>
+            <td>{{t.nowYearPrice}}</td>
+            <td>{{t.lastYearPrice}}</td>
+            <td>{{t.increase}}</td>
+            <td>{{t.nowYearRanking}}</td>
+            <td>{{t.lastYearRanking}}</td>
+            <td>{{t.nowYearProportion}}</td>
+            <td>{{t.lastYearProportion}}</td>
+            <td>{{t.nowYearTeamCount}}</td>
+            <td>{{t.lastYearTeamCount}}</td>
+            <td>{{t.nowYearPersonCount}}</td>
+            <td>{{t.lastYearPersonCount}}</td>
+            <td class="look-detail" data-name="{{t.item}}">
+                查看
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/if}}
