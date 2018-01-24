@@ -13,7 +13,7 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /.art$/,
+      test: /.art.html$/,
       use: ['art-template-loader']
     }]
   },
