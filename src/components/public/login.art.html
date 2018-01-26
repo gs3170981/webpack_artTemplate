@@ -1,0 +1,10 @@
+<div class="main">
+  <div class="content">
+    <div class="logo"></div>
+    <nav class="item">
+      {{each fileName as t i}}
+        <a class="li" href="/{{ fileName[i] }}">{{ config[i].title }}</a>
+      {{/each}}
+    </nav>
+  </div>
+</div>

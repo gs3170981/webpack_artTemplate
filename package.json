@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "author": "",
-  "main": "index.js",
+  "main": "login.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.config.js --open",
+    "start": "webpack-dev-server --config webpack.dev.config.js --open",
+    "dev": "node tool/build_auto && timeout /t 7 && webpack-dev-server --config webpack.dev.config.js --open",
     "build": "webpack --config webpack.prod.config.js --progress",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "auto": "node tool/build_auto",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bailidujuan": "node option/build/bailidujuan && webpack --config webpack.prod.config.js --progress",
+    "chanyejiance": "node option/build/chanyejiance && webpack --config webpack.prod.config.js --progress"
   },
   "keywords": [],
   "license": "ISC",
@@ -15,8 +19,15 @@
     "art-template": "^4.10.1",
     "art-template-loader": "^1.4.3",
     "html-webpack-plugin": "^2.28.0",
+    "jquery": "^3.3.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.10.1",
-    "jquery": "^3.3.1"
+    "webpack-dev-server": "^2.10.1"
+  },
+  "dependencies": {
+    "css-loader": "^0.28.9",
+    "file-loader": "^1.1.6",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.19.1"
   }
 }
