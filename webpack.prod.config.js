@@ -3,6 +3,7 @@ const {
 } = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 //const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const _path = (url) => {
   return resolve(__dirname, url)
@@ -12,9 +13,9 @@ module.exports = {
     _path('src/index.js')
   ],
   output: {
-    path: resolve(__dirname, 'dist'),
+    path: _path('dist'),
     filename: '[chunkhash].js',
-//  publicPath: 'dist/'
+    //  publicPath: './'
   },
   module: {
     rules: [{
@@ -39,8 +40,8 @@ module.exports = {
       'img': _path('src/img'),
       'static': _path('src/static'),
       'js': _path('src/js'),
-//    'plugin': _path('src/js/plugin'),
-//    'logic': _path('src/js/logic'),
+      //    'plugin': _path('src/js/plugin'),
+      //    'logic': _path('src/js/logic'),
       '@': __dirname,
       //    'css': _path('src/css'),
       'main': _path('src/js/logic/main')
@@ -52,7 +53,7 @@ module.exports = {
       comments: false
     }),
     new HtmlWebpackPlugin({
-      template: resolve(__dirname, './src/index.html'),
+      template: _path('./src/index.html'),
       minify: {
         collapseBooleanAttributes: true,
         collapseWhitespace: true,
@@ -61,7 +62,23 @@ module.exports = {
       }
     }),
     new webpack.ProvidePlugin({ // 加载jq
-      $: 'jquery'
-    })
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
+    new CopyWebpackPlugin([{ // copy
+      from: __dirname + '/src/js',
+      to: __dirname + '/dist/js',
+      toType: 'dir'
+    }]),
+    new CopyWebpackPlugin([{
+      from: __dirname + '/src/less',
+      to: __dirname + '/dist/less',
+      toType: 'dir'
+    }]),
+    new CopyWebpackPlugin([{
+      from: __dirname + '/src/fonts',
+      to: __dirname + '/dist/fonts',
+      toType: 'dir'
+    }])
   ]
 }

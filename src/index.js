@@ -2,12 +2,13 @@ const data = require('@/option/json/chanyejiance.json')
 const head = require('components/chanyejiance/publicTemplate/head.art.html')
 const body = require('components/chanyejiance/publicTemplate/body.art.html')
 console.log(data)
+const path = ''
 $('head').html(head({
-  'root': '../../src/',
-  'path': '../../src/components/chanyejiance/',
+  'root': path,
+//'path': '../../src/components/chanyejiance/',
   'data': data
 }))
-require("js/layui/layui.all.js")
+//require("js/layui/layui.all.js")
 //require("font-awesome-webpack")
 //require('font-awesome/css/font-awesome.min.css')
 //require("fonts/css/font-awesome.min.css")
