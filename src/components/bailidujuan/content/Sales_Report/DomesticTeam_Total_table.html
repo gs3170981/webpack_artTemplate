@@ -1,0 +1,55 @@
+<style type="text/css">
+    .mask {
+        height: 75.6%;
+        overflow: hidden;
+        background: rgba(227, 235, 226, .1);
+        position: relative;
+        position: fixed;
+        width: 85.7%;
+    }
+
+    .mask .loading {
+        color: rgba(0, 0, 0, .5);
+        cursor: default;
+        margin: 20% 0 0 49%;
+        width: auto;
+    }
+</style>
+{{if (!list)}}
+<div class="mask">
+    <i class="fa fa-3x fa-spinner fa-pulse loading"></i>
+</div>
+{{else}}
+<table class="layui-table" id="content-table">
+    <thead>
+        <tr>
+            <th>月份</th>
+            <th>金额</th>
+            <th>去年金额</th>
+            <th>增长率</th>
+            <th>团队数</th>
+            <th>去年团队数</th>
+            <th>同比</th>
+            <th>人数</th>
+            <th>去年人数</th>
+            <th>同比</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{if list}} {{each list as t i}}
+        <tr>
+            <td>{{t.item}}</td>
+            <td>{{t.nowYearPrice}}</td>
+            <td>{{t.lastYearPrice}}</td>
+            <td>{{t.increase}}</td>
+            <td>{{t.nowYearTeamCount}}</td>
+            <td>{{t.lastYearTeamCount}}</td>
+            <td>{{t.teamCountProportion}}</td>
+            <td>{{t.nowYearPersonCount}}</td>
+            <td>{{t.lastYearPersonCount}}</td>
+            <td>{{t.personCountProportion}}</td>
+        </tr>
+        {{/each}} {{/if}}
+    </tbody>
+</table>
+{{/if}}

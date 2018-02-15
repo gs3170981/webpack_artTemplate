@@ -1,4 +1,4 @@
-console.log('\x1B[42m' + '正在构建中，请尽量等以下时间结束......\nTIPS：如果您构建过一次，下一次可直接执行：> npm run start' + '\x1B[49m')
+console.log('\x1B[42m' + '正在构建中，请尽量等以下时间结束......\nTIPS：如果您构建过一次，建议下一次可直接执行：> npm run start' + '\x1B[49m')
 const fs = require("fs")
 let file_handle = {
   url: './option/json',
@@ -23,7 +23,7 @@ files.forEach((file, index) => {
 })
 
 Promise.all(file_handle.promise_arr.arr).then(results => {
-  let file_C = (name, build_option) => {
+  let file_C = (name, build_option, del) => {
     fs.exists(name, function (exists) {
       if (exists) { // 有这个文件的话 --- 跳过
         return false
@@ -49,6 +49,7 @@ Promise.all(file_handle.promise_arr.arr).then(results => {
       let build_inlet = `const data = require('@/option/json/`+ file_name[i] +`.json')
 const head = require('components/`+ file_name[i] +`/publicTemplate/head.art.html')
 const body = require('components/`+ file_name[i] +`/publicTemplate/body.art.html')
+window.option_data = data
 const path = '../../src/' // 不可修改!
 $('head').html(head({
   'root': path,

@@ -1,0 +1,26 @@
+<style></style>
+<form class="layui-form" action="" style="padding-left: 0.55rem;padding-top: 0.2rem;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">消费类型</label>
+        <div class="layui-input-block">
+            <select id="type-val" name="type">
+                {{each list as item i}}
+                <option value="{{item.value}}">{{item.name}}</option>
+                {{/each}}
+                
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">收入时间:</label>
+        <div class="layui-input-block">
+            <input type="text" name="time" value="{{date}}" disabled required lay-verify="time" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">收入金额:</label>
+        <div class="layui-input-block">
+            <input id="income" type="text" name="money" required lay-verify="money" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+</form>

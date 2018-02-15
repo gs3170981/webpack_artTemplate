@@ -1,0 +1,148 @@
+<style type="text/css">
+    .mask {
+        height: 75.6%;
+        overflow: hidden;
+        background: rgba(227, 235, 226, .1);
+        position: relative;
+        position: fixed;
+        width: 85.7%;
+    }
+
+    .mask .loading {
+        color: rgba(0, 0, 0, .5);
+        cursor: default;
+        margin: 20% 0 0 49%;
+        width: auto;
+    }
+</style>
+{{if (!data)}}
+<div class="mask">
+    <i class="fa fa-3x fa-spinner fa-pulse loading"></i>
+</div>
+{{else}}
+<table class="layui-table" id="content-table" style="margin-top: 0;">
+    <colgroup>
+        <col width="5%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+        <col width="4.75%">
+    </colgroup>
+    <thead style="display:none;">
+        <tr>
+            <th rowspan="3">项目日</th>
+            <th colspan="7">长城景区</th>
+            <th colspan="7">东湖景区</th>
+            <th colspan="5">古街区</th>
+            <th rowspan="3">总计</th>
+        </tr>
+        <tr>
+            <th colspan="3">国内</th>
+            <th colspan="4">境外</th>
+            <th colspan="3">国内</th>
+            <th colspan="4">境外</th>
+            <th colspan="1">国内</th>
+            <th colspan="4">境外</th>
+        </tr>
+        <tr>
+            <th>收费</th>
+            <th>免费</th>
+            <th>小计</th>
+            <th>港、澳</th>
+            <th>台湾地区</th>
+            <th>国外</th>
+            <th>小计</th>
+            <th>收费</th>
+            <th>免费</th>
+            <th>小计</th>
+            <th>港、澳</th>
+            <th>台湾地区</th>
+            <th>国外</th>
+            <th>小计</th>
+            <th>免费</th>
+            <th>港、澳</th>
+            <th>台湾地区</th>
+            <th>国外</th>
+            <th>小计</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{each data as t i}}
+        <tr>
+            <td>{{t.date}}</td>
+            <!-- 长城景区 -->
+            <td>{{t.GREAT_WALL_DOMESTIC_CHARGE.peoples}}</td>
+            <td>{{t.GREAT_WALL_DOMESTIC_FREE.peoples}}</td>
+            <td>{{t.GREAT_WALL_DOMESTIC_FREE.peoples + t.GREAT_WALL_DOMESTIC_CHARGE.peoples}}</td>
+
+            <td>
+                <input data-id="{{i}}" class="edit" type="number" data-date="{{t.date}}" data-scenic="GREAT_WALL" data-area="HK_AND_MACAO"
+                    value="{{t.GREAT_WALL_HK_AND_MACAO.peoples}}">
+            </td>
+            <td>
+                <input data-id="a{{i}}" class="edit" data-date="{{t.date}}" data-scenic="GREAT_WALL" data-area="TAIWAN" type="number"
+                    value="{{t.GREAT_WALL_TAIWAN.peoples}}">
+            </td>
+            <td>
+                <input data-id="b{{i}}" class="edit" data-date="{{t.date}}" data-scenic="GREAT_WALL" data-area="ABROAD" type="number"
+                    value="{{t.GREAT_WALL_ABROAD.peoples}}">
+            </td>
+            <td>{{t.GREAT_WALL_ABROAD.peoples + t.GREAT_WALL_TAIWAN.peoples + t.GREAT_WALL_HK_AND_MACAO.peoples}}</td>
+
+            <!-- 东湖景区 -->
+            <td>{{t.EAST_LAKE_DOMESTIC_CHARGE.peoples}}</td>
+            <td>{{t.EAST_LAKE_DOMESTIC_FREE.peoples}}</td>
+            <td>{{t.EAST_LAKE_DOMESTIC_FREE.peoples + t.EAST_LAKE_DOMESTIC_CHARGE.peoples}}</td>
+
+            <td>
+                <input data-id="c{{i}}" class="edit" data-date="{{t.date}}" data-scenic="EAST_LAKE" data-area="HK_AND_MACAO"
+                    type="number" value="{{t.EAST_LAKE_HK_AND_MACAO.peoples}}">
+            </td>
+            <td>
+                <input data-id="d{{i}}" class="edit" data-date="{{t.date}}" data-scenic="EAST_LAKE" data-area="TAIWAN" type="number"
+                    value="{{t.EAST_LAKE_TAIWAN.peoples}}">
+            </td>
+            <td>
+                <input data-id="e{{i}}" class="edit" data-date="{{t.date}}" data-scenic="EAST_LAKE" data-area="ABROAD" type="number"
+                    value="{{t.EAST_LAKE_ABROAD.peoples}}">
+            </td>
+            <td>{{t.EAST_LAKE_ABROAD.peoples + t.EAST_LAKE_TAIWAN.peoples + t.EAST_LAKE_HK_AND_MACAO.peoples}}</td>
+
+            <!-- 古街区 -->
+            <td>{{t.OLD_STREETS_DOMESTIC_FREE.peoples}}</td>
+
+            <td>
+                <input data-id="f{{i}}" class="edit" data-date="{{t.date}}" data-scenic="OLD_STREETS" data-area="HK_AND_MACAO"
+                    type="number" value="{{t.OLD_STREETS_HK_AND_MACAO.peoples}}">
+            </td>
+            <td>
+                <input data-id="g{{i}}" class="edit" data-date="{{t.date}}" data-scenic="OLD_STREETS" data-area="TAIWAN" type="number"
+                    value="{{t.OLD_STREETS_TAIWAN.peoples}}">
+            </td>
+            <td>
+                <input data-id="h{{i}}" class="edit" data-date="{{t.date}}" data-scenic="OLD_STREETS" data-area="ABROAD" type="number"
+                    value="{{t.OLD_STREETS_ABROAD.peoples}}">
+            </td>
+            <td>{{t.OLD_STREETS_ABROAD.peoples + t.OLD_STREETS_TAIWAN.peoples + t.OLD_STREETS_HK_AND_MACAO.peoples}}</td>
+            <td>{{t.allPeople}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/if}}
