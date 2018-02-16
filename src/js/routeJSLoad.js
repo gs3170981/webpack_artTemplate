@@ -50,10 +50,14 @@ const Router = {
   },
   route () {
     let url = location.hash.slice(1).split('/') || '/'
+    url = url[url.length - 1]
+    if (!url.length) {
+      url = 'index'
+    }
     try {
-      require('components/' + this.data.url + '/js/main/' + url[url.length - 1] + '.js')
+      require('components/' + this.data.url + '/js/main/' + url + '.js')
     } catch (e) {
-      console.warn('当前未查询到该JS文件, 如为开发阶段可忽略该条警告', 'components/' + this.data.url + '/js/main/' + url[url.length - 1] + '.js')
+      console.warn('当前查询到JS文件出错, 视情况忽略该条警告', 'components/' + this.data.url + '/js/main/' + url[url.length - 1] + '.js', '错误信息：', e)
     }
   }
 }
