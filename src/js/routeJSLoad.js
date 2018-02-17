@@ -28,20 +28,20 @@ const Fun = {
 const Router = {
   data: {
     filter: ['!'], // 过滤字符
-    menu: {},
-    url: ''
+    data: {},
+    path: ''
   },
-  init (r, url) {
+  init (r, path) {
     console.log(this)
-    this.data.menu = r.menu
-    this.data.url = url
+    this.data.data = r
+    this.data.path = path
 //  addEventListener('load', this.route())
     addEventListener('hashchange', this.route())
 
 //  this.load()
   },
   load (r) {
-    let data = this.data.menu
+//  let data = this.data.menu
 
 //  for (let i = 0; i < data.length; i++) {
 //    let href = Fun.router_filter(data[i].href)
@@ -55,9 +55,10 @@ const Router = {
       url = 'index'
     }
     try {
-      require('components/' + this.data.url + '/js/main/' + url + '.js')
+      let router_js = require('components/' + this.data.path + '/js/main/' + url + '.js')
+      router_js.default(this.data)
     } catch (e) {
-      console.warn('当前查询到JS文件出错, 视情况忽略该条警告', 'components/' + this.data.url + '/js/main/' + url[url.length - 1] + '.js', '错误信息：', e)
+      console.warn('当前查询到JS文件出错, 视情况忽略该条警告', 'components/' + this.data.path + '/js/main/' + url[url.length - 1] + '.js', '错误信息：', e)
     }
   }
 }

@@ -181,10 +181,19 @@
 //setTimeout(function () {
 //index.init()
 //}, 0)
-import { Arr, _this } from "../inheritCore_extend.js"
-new Arr([{
-  data: {},
-  name: 'a',
+import { Arr, _this, Render } from "../inheritCore_extend.js"
+export default res => new Arr([{
+  data: {
+    title: '全域大数据分析展示平台',
+//  build: {
+//    width: 12,
+//    line: 1,
+//    height: '50%',
+//    template: 'index/index.art.html'
+//  },
+    data: {} // 假数据或真数据存储处
+  },
+  name: 'main',
   init () {
     console.log(1)
   },
@@ -193,41 +202,18 @@ new Arr([{
   },
   handle () {
     console.log(3)
+//  console.log(3, res, _this)
+    this.render() // 输出
   },
-  render () {
-    _this.b.init()
-  },
+//render () {
+////  _this.b.init()
+//  Render(this)
+//
+//},
   bind () {
     console.log(5)
   }
-}, {
-  data: {},
-  name: 'b',
-  init (a) {
-    console.log(1)
-    this.ajax()
-  },
-  ajax () {
-    console.log(2)
-    this.handle()
-  },
-  handle () {
-    console.log(3)
-    this.render()
-  },
-  render () {
-    console.log(4)
-    this.bind()
-  },
-  bind () {
-    console.log(5)
-  }
-}], {
-  destroyed () {
+}])
 
-  }
-}, {
-  test () {
-    console.log('继承添加测试成功！')
-  }
-})
+
+

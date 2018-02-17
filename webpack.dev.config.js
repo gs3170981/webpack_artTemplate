@@ -23,6 +23,10 @@ module.exports = {
   },
   module: {
     rules: [{
+        test: /\.js$/,
+//      exclude: /node_modules/,
+        loader: 'babel-loader'
+      }, {
         test: /.art.html$/,
         use: ['art-template-loader']
       }, {

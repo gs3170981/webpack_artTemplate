@@ -1,8 +1,7 @@
-import { Core, Arr, _this } from "js/inheritCore.js"
+import { Fun, Core, Arr, _this } from "js/inheritCore.js"
 class Arr_extend extends Arr {
-  constructor(data, other, test) {
+  constructor(data, other) {
     super(data, other)
-    test.test()
   }
 }
 export {

@@ -1,3 +1,6 @@
+/* 高耦合文件,闲杂人等快快离开
+ * Tips: 要修改原型请移步至子项目JS中的inheritCore_extend.js去继承并修改扩充配置项
+ * --- GS */
 const Fun = {
   load_auto (self, now, next) {
     /* 如果只有一个传参，则表示该函数不执行
@@ -5,6 +8,10 @@ const Fun = {
      * (为了标识该函数是否手动执行还是同步执行的判断)
      * --- GS */
     if (!self.load_auto) {
+      return
+    }
+    if (!self.data[now]) { // 如缺省则跳过进行下一个函数周期
+      self[next]()
       return
     }
     if (self.data[now].length !== 1) {
@@ -21,12 +28,40 @@ const Fun = {
     if (self && self[action]) {
       self[action]()
     }
+  },
+  build_default (old, now) {
+    if (!now) {
+      return old
+    }
+    let build = {}
+    for (let i in old) {
+      let p = false
+      for (let j in now) {
+        if (i === j) {
+          p = true
+          build[i] = now[j]
+          break
+        }
+      }
+      if (!p) {
+        build[i] = old[i]
+      }
+    }
+    return build
   }
 }
 const _this = {}
-class Core { // 单个的原型过程控制
+const build_default = {
+  width: 12,
+  line: 1,
+  height: '100%',
+  template: 'publicTemplate/basics.html'
+}
+class Core { // 单个Model的创建周期
   constructor (data) {
     this.data = data
+    // 是否支持自定义render输出写法
+    data.render ? this.render = this.data.render : this.data.render = this.render
     this.load_auto = true
     this.init()
   }
@@ -37,10 +72,12 @@ class Core { // 单个的原型过程控制
     Fun.load_auto(this, 'ajax', 'handle')
   }
   handle () {
-    Fun.load_auto(this, 'handle', 'render')
+    Fun.load_auto(this, 'handle', 'bind')
   }
   render () {
-    Fun.load_auto(this, 'render', 'bind')
+    let build = Fun.build_default(build_default, this.data.build) // build缺省值补全
+    console.log(build)
+
   }
   bind () {
     Fun.load_auto(this, 'bind')
@@ -73,4 +110,4 @@ class Arr { // 生命周期
     onbeforeunload = e => Fun.cycle_judge(this.other, 'destroyed')
   }
 }
-export { Core, Arr, _this }
+export { Fun, Core, Arr, _this }

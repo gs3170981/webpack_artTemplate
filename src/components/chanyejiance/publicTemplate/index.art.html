@@ -1,0 +1,362 @@
+<style>
+  .layui-layout-body {
+    height: 100%;
+  }
+
+  .layui-layout-admin {
+    height: 100%;
+  }
+  .leftMenu-li {
+    position: relative;
+    margin: .02rem 0 .2rem;
+  }
+  .leftMenu-li .leftMenu-li-top {
+    width: 60%;
+    text-align: center;
+    height: .04rem;
+    display: block;
+    margin-left: 20%;
+    position: absolute;
+    background: #95fdfe;
+  }
+  .layui-bg-black {
+    background-color: #010c1c!important;
+    /*opacity: .55;*/
+  }
+  .cloud {
+    color: rgba(255,255,255,.8);
+    position: absolute;
+    left: 2.18rem;
+    font-size: .13rem;
+    line-height: .57rem;
+  }
+  .layui-logo {
+    overflow: hidden;
+    border-right: .01rem solid black;
+    cursor: pointer;
+    transition: all .3s;
+    width: 2rem!important;
+  }.layui-logo:hover {
+    background: #4E5465;
+  }
+
+  .layui-logo .fa-home {
+    float: left;
+    font-size: .27rem;
+    margin: .135rem .10rem 0 .20rem;
+    color: rgba(255, 255, 255, .8);
+  }
+
+  .layui-logo .title {
+    float: left;
+    margin-top: .01rem;
+    font-size: .14rem;
+    color: rgba(255, 255, 255, .8);
+  }
+
+  /*.J-bg {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    margin: 0 auto;
+    position: absolute;
+    z-index: -1;
+    background: url('img/bg.jpg') no-repeat center 0;
+  }*/
+
+  .layui-nav-tree .active {
+    /*border-left: .05rem solid #41d99a;*/
+    /*background: #252525;*/
+    /*color: #edc447;*/
+  }
+
+  .menuTop {
+    height: .55rem;
+    line-height: .55rem;
+    overflow: hidden;
+  }
+
+  .menuTop .fa-align-left {
+    float: left;
+    font-size: .18rem;
+    margin: .20rem .10rem 0 .21rem;
+  }
+
+  .menuTop .title {
+    float: left;
+    font-size: .15rem;
+    margin-top: .01rem;
+  }
+
+  /*.leftMenu-li a {
+    padding: 0 .48rem!important;
+  }*/
+
+  .title {
+    text-align: center;
+    color: white;
+    font-size: .22rem;
+    font-family: 微软雅黑;
+    line-height: .51rem;
+    /*font-weight: bold;*/
+  }
+
+  .layui-header {
+    color: white;
+    text-align: center;
+    font-size: .36rem;
+    text-shadow: .03rem .03rem .03rem black;
+    /*opacity: .65;*/
+    line-height: .92rem;
+    height: .92rem;
+    /*border-bottom: 1px solid black;*/
+    background: url('img/header.png') no-repeat center center;
+    background-size: 100% 100%;
+    background-color: transparent!important;
+    margin: 0 auto;
+  }
+
+  .content {
+    overflow-y: auto;
+    height: 98.5%;
+    padding-top: 1.1rem!important;
+  }
+
+  /*.layui-nav-tree .layui-nav-child a {
+    padding-left: .35rem!important;
+    line-height: .26rem;
+  }*/
+
+  .layui-nav-tree .layui-nav-child {
+    display: block!important;
+    max-height: 0;
+    transition: max-height .5s ease;
+    overflow: hidden;
+    padding: 0;
+    border-top: .01rem solid #5a98b6;
+    box-shadow: 0 0 0.3rem 0.1rem rgba(126, 174, 199, 0.5) inset;
+  }
+  .layui-nav-tree .layui-nav-child .active {
+    position: relative;
+  }
+  .layui-nav-tree .layui-nav-child .succ {
+    background: #95fdfe!important;
+    /*position: relative;*/
+    color: black!important;
+  }.layui-nav-tree .layui-nav-child .active:after {
+    content: '';
+    position: absolute;
+    display: block;
+    height: .1rem;
+    width: .1rem;
+    background: #0d1b2c;
+    right: -.05rem;
+    transform: rotate(45deg);
+    bottom: -.05rem;
+  }.layui-nav-tree .layui-nav-child .active:before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: .1rem;
+    width: .1rem;
+    background: #0d1b2c;
+    left: -.05rem;
+    transform: rotate(45deg);
+    top: -.05rem;
+  }
+
+  .layui-nav-tree .layui-nav-child .active:hover {
+    /*background: #5d5f60;*/
+    color: #d1d5da;
+  }
+
+  .leftMenu-angle-icon {
+    float: right;
+    line-height: .45rem;
+  }.layui-layout-admin .layui-side {
+    top: 1.14rem;
+  }.layui-nav-timer {
+    /*width: 1.9rem;*/
+    font-size: .12rem!important;
+    color: rgba(255,255,255,.7);
+  }.layui-rightNav-li {
+    line-height: .55rem!important;
+    height: .55rem!important;
+  }.leftMenu-li-title .icon {
+    margin-right: .05rem;
+  }
+  /*.main-index {
+    opacity: 0;
+    transition: opacity .5s ease;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: url('img/bg.jpg') no-repeat center top;
+    background-repeat:no-repeat;background-size: cover;
+  }.main-index .title {
+    line-height: 1.18rem;
+    height: 1.18rem;
+    color: black;
+  }.main-index .content {
+    margin: .39rem 1.79rem;
+  }.main-index .content .block {
+    display: block;
+    float: left;
+    height: 2.05rem;
+    width: 2.05rem;
+    margin: 0 .55rem .2rem 0;
+    border-radius: .2rem;
+    transition: filter .2s ease;
+  }.main-index .content .block:hover {
+    filter: drop-shadow(0 5px 4px #9a9a9a);
+  }.main-index .content .block .icon {
+    height: 1rem;
+    width: 1rem;
+    margin: .35rem .5rem 0;
+  }.main-index .content .block .title {
+    line-height: .65rem;
+    height: .65rem;
+    font-size: .18rem;
+    color: white;
+  }*/
+  .leftMenu-child-title {
+    box-shadow: none!important;
+    border: none!important;
+  }
+  .leftMenu-child-title-icon {
+    float: right;
+    line-height: .45rem;
+    color: white;
+  }.leftMenu-child-title-icon:hover {
+    color: orange;
+  }.layui-rightNav-li_news {
+    position: absolute!important;
+    top: .65rem;
+    color: rgba(255,255,255,.7);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    right: -100%;
+    padding: .05rem 0;
+    transition: right .2s ease;
+    background: #393c3d;
+  }.layui-rightNav-li_news .news-list {
+    transition: background .2s ease;
+    padding: 0 .2rem;
+    cursor: pointer;
+  }.layui-rightNav-li_news .news-list:hover {
+    background: #5d5f60;
+  }
+</style>
+<div class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin" style="background: #010c1c;">
+    <div class="layui-header">
+      {{title}}
+      <!--<a href="#/" class="layui-logo">-->
+        <!--<i class="fa fa-2x fa-home"></i>-->
+        <!--<h1 class="title" style="line-height: .55rem!important;">系统首页</h1>-->
+      <!--</a>-->
+      <!--<span class="cloud">
+        <i class="fa fa-cloud" style="font-size: .22rem;line-height: .57rem;float: left;"></i>
+        <span style="line-height: .6rem;float: left;height: 100%;margin-left: .1rem;">2℃ ~ 12℃</span>
+      </span>-->
+      <!--<h1 class="title">{{title}}</h1>-->
+      <!--<ul class="layui-nav layui-layout-right">-->
+        <!--<li class="layui-nav-item layui-nav-timer layui-rightNav-li"></li>-->
+        <!--<li class="layui-nav-item layui-rightNav-li_news">
+          <p class="news-list" data-href="#/TypesettingDispatch_Manage/Dispatch_Plan_Release"><i class="fa" style="width: .08rem;height: .08rem;border-radius: 50%;background: red;margin-right: .1rem;"></i>有两条待审核调度计划任务，立即前去审核</p>
+          <p class="news-list" data-href="#/TypesettingDispatch_Manage/SchedulingPlan_Execution"><i class="fa" style="width: .08rem;height: .08rem;border-radius: 50%;background: red;margin-right: .1rem;"></i>有一条调度计划任务已开始执行，立即查看调度计划运行状态</p>
+        </li>
+        <li class="layui-nav-item layui-rightNav-li layui-rightNav-news">
+          <a href="javascript:;">消息<span class="layui-badge">2</span></a>
+        </li>-->
+
+        <!--<li class="layui-nav-item layui-rightNav-li">
+          <a href="javascript:;" style="font-size: .12rem!important;">
+            <i class="fa fa-user-o"></i> 系统管理员
+          </a>
+        </li>
+        <li class="layui-nav-item layui-rightNav-li">
+          <a class="hand" id="login_back">
+            <i class="fa fa-sign-out" style="font-size: .3rem!important;line-height: .55rem;"></i>
+          </a>
+        </li>-->
+      <!--</ul>-->
+    </div>
+    <!--<script>
+      $('#login_back').off('click').click(function () {
+        var url = location.host + location.pathname;
+        url = 'http://' + url.substring(0, url.lastIndexOf('index.html')) + 'login.html';
+        localStorage.token = '';
+        location.href = url;
+      });
+    </script>-->
+    <nav class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <!--<p class="menuTop">
+          <i class="fa fa-align-left"></i>
+          <span class="title">概览</span>
+        </p>-->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test" style="background-color: transparent;">
+          <!--列表用在li中添加layui-nav-itemed控制-->
+          {{each menu as t i}}
+            <li class="layui-nav-item leftMenu-li">
+              {{if (t.childrens)}}
+                <i class="leftMenu-li-top"></i>
+                <a class="leftMenu-li-title" href="{{if (t.url)}}{{t.url}}{{else}}javascript:;{{/if}}" style="cursor: pointer;font-size: .17rem!important;">
+                  <!--<i class="fa fa-fw {{t.iconStyle}} icon"></i>-->
+                  {{t.name}}
+                  <i class="fa fa-angle-left leftMenu-angle-icon"></i>
+                </a>
+                <dl data-id="{{ i }}" class="layui-nav-child">
+                  {{each t.childrens as tt jj}}
+                    <dd>
+                      <a data-type="{{t.type}}" data-id="{{if (tt.id)}}{{tt.id}}{{/if}}" class="active leftMenu-child-title" href="{{t.url}}{{tt.url}}">
+                        {{ tt.name }}
+                        {{if (t.type === 'Monitor')}}
+                          <i class="fa fa-camera-retro leftMenu-child-title-icon"></i>
+                        {{/if}}
+                      </a>
+                    </dd>
+                  {{/each}}
+                </dl>
+              {{else}}
+                <a class="leftMenu-li-title" href="{{if (t.url)}}{{t.url}}{{else}}javascript:;{{/if}}">
+                  <!--<i class="fa fa-fw {{t.iconStyle}} icon"></i>-->
+                  {{t.name}}
+                </a>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    </nav>
+    <div class="layui-body" style="bottom: 0;overflow: hidden;">
+      <div class="content" style="padding: .2rem;position: relative;">
+        <!--<div class="main-index">
+          <h1 class="title">{{ title }}</h1>
+          <section class="content">
+            {{each menu as t i}}
+              <a class="block" style="{{ if (i === 3 || i === 7)}}margin-right: 0;{{/if}}{{if (t.color)}}background: linear-gradient(135deg, {{t.color.start}}, {{t.color.end}});box-shadow: 1px 0 2px {{t.color.end}};{{/if}}" href="{{if (t.href)}}{{t.href}}{{else}}javascript:;{{/if}}">
+                <img class="icon" src="{{t.icon}}"/>
+                <p class="title">{{ t.title }}</p>
+              </a>
+            {{/each}}
+          </section>
+          <script>
+            $('.layui-body').find('.block').off('click').click(function () {
+              $('.leftMenu-li-title[href="'+ $(this).attr('href') +'"]').click()
+            });
+            setTimeout(function () {
+              $('.main-index').css('opacity', 1);
+            }, 0)
+          </script>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="J-bg"></div>-->
