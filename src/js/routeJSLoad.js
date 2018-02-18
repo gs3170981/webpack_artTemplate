@@ -56,7 +56,9 @@ const Router = {
     }
     try {
       let router_js = require('components/' + this.data.path + '/js/main/' + url + '.js')
-      router_js.default(this.data)
+      setTimeout (r => {
+        router_js.default(this.data)
+      }, 100)
     } catch (e) {
       console.warn('当前查询到JS文件出错, 视情况忽略该条警告', 'components/' + this.data.path + '/js/main/' + url[url.length - 1] + '.js', '错误信息：', e)
     }

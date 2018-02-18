@@ -74,10 +74,35 @@ class Core { // 单个Model的创建周期
   handle () {
     Fun.load_auto(this, 'handle', 'bind')
   }
-  render () {
+  render () { // 输出
     let build = Fun.build_default(build_default, this.data.build) // build缺省值补全
     console.log(build)
-
+    // * --- 必要START
+//  var obj = $('.content .layui-row')
+//  if (build.width >= 6) {
+//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
+//  } else if (build.width >= 4) {
+//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm6 layui-col-md' + build.width
+//  } else {
+//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
+//  }
+//  if ($(obj)[0]) {
+//    // 如果有相同的则重新渲染
+//    if ($('#' + build.id)[0]) {
+//      var objParent = $('#' + build.id).parent()
+//      $('#' + build.id).html(template('content/' + build.template, data))
+//      return
+//    }
+//    for (var i = 0; i < obj.length; i++) {
+//      var h = parseInt($(obj[i]).attr('data-line'))
+//      if (build.line === h) {
+//        $(obj[i]).append('<div id="' + build.id + '" style="height: '+ build.height +'" class="' + build.klass + '">' + template('content/' + build.template, data) + '</div>')
+//        return
+//      }
+//    }
+//  }
+//  $('.content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18 " + build.class +"' style='height:" + build.height + ";margin: 0;'><div id='" + build.id + "' class='" + build.klass + "'>" + template('content/' + build.template, data) + "</div></section>")
+    // * --- END
   }
   bind () {
     Fun.load_auto(this, 'bind')

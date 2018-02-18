@@ -181,7 +181,10 @@
 //setTimeout(function () {
 //index.init()
 //}, 0)
-import { Arr, _this, Render } from "../inheritCore_extend.js"
+
+require('../../less/public.less')
+import { Arr, _this } from "../inheritCore_extend.js"
+import body from "../../publicTemplate/body.art.html"
 export default res => new Arr([{
   data: {
     title: '全域大数据分析展示平台',
@@ -205,12 +208,25 @@ export default res => new Arr([{
 //  console.log(3, res, _this)
     this.render() // 输出
   },
+  render () { // 覆盖了body下chanyejiance.js的引入，不知有没有问题
+    $('body').html(body({
+      data: res.data,
+      json: JSON.stringify(res.data)
+    }))
+  },
 //render () {
 ////  _this.b.init()
 //  Render(this)
 //
 //},
   bind () {
+    layui.use('element', function(){
+      var element = layui.element
+      element.init()
+      element.on('tab(nav)', function(data){
+        console.log(data)
+      })
+    })
     console.log(5)
   }
 }])
