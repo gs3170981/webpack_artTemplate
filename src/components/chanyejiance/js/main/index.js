@@ -186,16 +186,15 @@ require('../../less/public.less')
 import { Arr, _this } from "../inheritCore_extend.js"
 import body from "../../publicTemplate/body.art.html"
 export default res => new Arr([{
-  data: {
-    title: '全域大数据分析展示平台',
+//data: {
+//  title: '全域大数据分析展示平台',
 //  build: {
 //    width: 12,
 //    line: 1,
 //    height: '50%',
 //    template: 'index/index.art.html'
 //  },
-    data: {} // 假数据或真数据存储处
-  },
+//},
   name: 'main',
   init () {
     console.log(1)
@@ -204,13 +203,14 @@ export default res => new Arr([{
     console.log(2)
   },
   handle () {
-    console.log(3)
-//  console.log(3, res, _this)
+//  console.log(3)
+    console.log(3, res, _this)
     this.render() // 输出
   },
   render () { // 覆盖了body下chanyejiance.js的引入，不知有没有问题
+
     $('body').html(body({
-      data: res.data,
+      res: res.data,
       json: JSON.stringify(res.data)
     }))
   },
@@ -228,6 +228,25 @@ export default res => new Arr([{
       })
     })
     console.log(5)
+    $('.G-layui-nav-tree a').off('click').click(function () {
+      let child = $(this).next()
+      if (child.hasClass('G-item')) {
+        let i_down = $(this).find('.fa-angle-down')
+        let child_show = child.hasClass('child_show')
+        if (!child_show) {
+          child.addClass('child_show')
+          setTimeout(res => {
+            child.css('overflow-y', 'auto')
+          }, 200)
+        } else {
+          child.removeClass('child_show').css('overflow-y', 'hidden')
+        }
+        i_down[0] && !i_down.hasClass('rotate_180') ? i_down.addClass('rotate_180') : i_down.removeClass('rotate_180')
+      } else {
+        $('.G-layui-nav-tree a').removeClass('active')
+        $(this).addClass('active')
+      }
+    })
   }
 }])
 

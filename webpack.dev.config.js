@@ -38,8 +38,12 @@ module.exports = {
       //    loader: 'file'
       //  },
       {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+
+//      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+//      loader: "url-loader?limit=10000&mimetype=application/font-woff"
+
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=10000'
       }, {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: "file-loader"
@@ -114,10 +118,10 @@ module.exports = {
     ////      collapseWhitespace: false // 删除空白符与换行符
     ////    }
     //  }),
-    new webpack.ProvidePlugin({ // 加载jq
-      $: 'jquery',
-      jQuery: 'jquery'
-    })
+//  new webpack.ProvidePlugin({ // 加载jq
+//    $: 'jquery',
+//    jQuery: 'jquery'
+//  })
     //  new webpack.ProvidePlugin({
     //    layui: 'layui-src'
     //  })
