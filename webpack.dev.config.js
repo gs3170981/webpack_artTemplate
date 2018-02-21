@@ -16,6 +16,7 @@ for (let i = 0; i < FILE_NAME.length; i++) {
 }
 entry.login = _path('src/login.js')
 module.exports = {
+//devtool: 'source-map', // 调试打包速度：source-map、 eval-source-map
   entry: entry, // auto自动创建入口
   output: {
     filename: '[name].js'
@@ -63,12 +64,13 @@ module.exports = {
       'js': _path('src/js'),
       'less': _path('src/less'),
       'fonts': _path('src/fonts'),
-      //    'plugin': _path('src/js/plugin'),
-      //    'logic': _path('src/js/logic'),
       '@': __dirname,
-      //    'css': _path('src/css'),
-      'main': _path('src/js/logic/main')
-      //    'plug': _path('plug')
+      'main': _path('src/js/logic/main'),
+      /* 警告：此标记不可删除（被依赖于build_auto构建工具） */
+// TODO START
+      "bailidujuan": _path("src/components/bailidujuan"),
+      "chanyejiance": _path("src/components/chanyejiance"),
+// TODO END
     }
   },
   plugins: [
@@ -118,10 +120,10 @@ module.exports = {
     ////      collapseWhitespace: false // 删除空白符与换行符
     ////    }
     //  }),
-//  new webpack.ProvidePlugin({ // 加载jq
-//    $: 'jquery',
-//    jQuery: 'jquery'
-//  })
+    new webpack.ProvidePlugin({ // 加载jq(用于es6引入支持JQ写法，但在模板内用JQ还是要html中引的)
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
     //  new webpack.ProvidePlugin({
     //    layui: 'layui-src'
     //  })

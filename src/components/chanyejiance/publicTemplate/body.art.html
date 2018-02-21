@@ -4,25 +4,25 @@
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left" lay-filter="nav">
       <li class="layui-nav-item">
-        <a href="">控制台</a>
+        <a href="#">控制台</a>
       </li>
       <li class="layui-nav-item">
-        <a href="">商品管理</a>
+        <a href="#">商品管理</a>
       </li>
       <li class="layui-nav-item">
-        <a href="">用户</a>
+        <a href="#">用户</a>
       </li>
       <li class="layui-nav-item">
-        <a href="javascript:;">其它系统</a>
+        <a href="#">其它系统</a>
         <dl class="layui-nav-child">
           <dd>
-            <a href="">邮件管理</a>
+            <a href="#">邮件管理</a>
           </dd>
           <dd>
-            <a href="">消息管理</a>
+            <a href="#">消息管理</a>
           </dd>
           <dd>
-            <a href="">授权管理</a>
+            <a href="#">授权管理</a>
           </dd>
         </dl>
       </li>
@@ -32,15 +32,15 @@
         <a href="javascript:;"><img src=".././img/tx.png" class="layui-nav-img">清一色天空</a>
         <dl class="layui-nav-child">
           <dd>
-            <a href="">基本资料</a>
+            <a href="#">基本资料</a>
           </dd>
           <dd>
-            <a href="">安全设置</a>
+            <a href="#">安全设置</a>
           </dd>
         </dl>
       </li>
       <li class="layui-nav-item">
-        <a href="">退了</a>
+        <a href="#">退了</a>
       </li>
     </ul>
   </div>
@@ -50,15 +50,21 @@
         <script>
           (menu => {
             let str = ''
-            let menu_For = (t, more) => {
+            let menu_For = (t, more, path) => {
               more ? more += 10 : false
               for (let i = 0; i < t.length; i++) {
+                if (t[i].href[0] === '@') {
+                  continue
+                }
                 let child = t[i].child
+                let href = (path ? path : '') + t[i].href
+                let href_p = href.indexOf('!') !== -1 ? true : false
+                href = href_p ? '#' + href.substring(1, href.length) : href
                 str += '<li>' +
-                '<a style="'+ (more ? 'padding-left: '+ more +'px;' : '') +'" href="#">'+ (more === false ? '<i class="fa fa-fw '+ t[i].fa +'" style="margin-right: 10px;"></i>' : '') + t[i].title + ( t[i].child ? '<i class="fa fa-angle-down" style="float: right;margin-right: 10px;"></i>' : '') +'</a>'
+                '<a class="G-item-title" style="'+ (more ? 'padding-left: '+ more +'px;' : '') +'" '+ (!href_p ? 'href="'+ href +'"' : '') +'>'+ (!more ? '<i class="fa fa-fw '+ t[i].fa +'" style="margin-right: 10px;"></i>' : '') + t[i].title + ( t[i].child ? '<i class="fa fa-angle-down" style="float: right;margin-right: 10px;"></i>' : '') +'</a>'
                 if (child) {
                   str += '<ul class="G-item scorll_style1">'
-                  menu_For(child, more ? more : 10)
+                  menu_For(child, more ? more : 10, href)
                   str += '</ul>'
                 }
                 str += '</li>'
@@ -72,7 +78,7 @@
     </div>
   </div>
   <div class="layui-body">
-    <div style="padding: 15px;">内容主体区域</div>
+    <div class="G-content" style="padding: 15px;"></div>
   </div>
   <div class="layui-footer">© layui.com - 底部固定区域 </div>
 </div>

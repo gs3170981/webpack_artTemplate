@@ -1,5 +1,5 @@
-require('../../../less/public.less')
-import { Arr, _this } from "../../inheritCore_extend.js"
+require('../../less/public.less')
+import { Arr, _this } from "../inheritCore_extend.js"
 //import { Router } from 'js/routeJSLoad.js'
 export default res => new Arr([{
   data: {
@@ -11,7 +11,7 @@ export default res => new Arr([{
 //    template: 'index/index.art.html'
 //  },
   },
-  name: 'b',
+  name: 'a',
   init () {
     console.log('我载入拉！', 1)
   },

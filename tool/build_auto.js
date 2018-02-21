@@ -27,12 +27,12 @@ files.forEach((file, index) => {
 
 Promise.all(file_handle.promise_arr.arr).then(results => {
   let file_C = (name, build_option, del) => {
-    fs.exists(name, function (exists) {
+    fs.exists(name, (exists) => {
       if (exists) { // 有这个文件的话 --- 跳过
         return false
       }
       // 添加
-      fs.appendFile(name, build_option, 'utf8', function (err) {
+      fs.appendFile(name, build_option, 'utf8', (err) => {
         if (err) {
           return console.error(err)
         }
@@ -68,7 +68,7 @@ const deleteDir = (path) => {
   var files = []
   if(fs.existsSync(path)) {
     files = fs.readdirSync(path)
-    files.forEach(function(file, index) {
+    files.forEach((file, index) => {
       var curPath = path + "/" + file
       if(fs.statSync(curPath).isDirectory()) {
         deleteDir(curPath)
@@ -87,7 +87,7 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
   fs.unlinkSync('./src/index.js', err => { // 删除
     if (err) throw err
   })
-  fs.appendFile('./src/index.js', data.replace('../../src/', ''), 'utf8', function (err) {
+  fs.appendFile('./src/index.js', data.replace('../../src/', ''), 'utf8', (err) => {
     if (err) {
       return console.error(err);
     }
@@ -96,15 +96,36 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
 `
         file_C(file_handle.build + file_name[i] + '.js', build_option)
       })(i)
-
 /* 对css全局样式创建 */
 //    file_C(file_handle.css_path + file_name[i] + '.less', build_option)
     }
+/* 读取webpack.dev.config.js进行添加resolve.alias前缀 */
+     fs.readFile('./webpack.dev.config.js', 'utf8', (err, data) => {
+      if (err) {
+        return console.error(err)
+      }
+      let poject_path_start = data.indexOf('// TODO START') + 13
+      let poject_path_end = data.indexOf('// TODO END', poject_path_start)
+      let poject_path = data.substring(poject_path_start, poject_path_end)
+      let str = '\n'
+      for (let i = 0; i < file_name.length; i++) {
+        str += '      "' + file_name[i] + '": _path("src/components/'+ file_name[i] +'"),\n'
+      }
+      fs.unlinkSync('./webpack.dev.config.js', err => { // 删除
+        if (err) throw err
+      })
+      fs.appendFile('./webpack.dev.config.js', data.replace(poject_path, str), 'utf8', (err) => {
+        if (err) {
+          return console.error(err);
+        }
+      })
+    })
+/* 对package.json做打包预处理 */
     fs.unlinkSync('./package.json', err => { // 删除
       if (err) throw err
     })
 /* 简单格式化并输出 */
-    fs.appendFile('./package.json', JSON.stringify(obj).replace(/,/g, ',\n'), 'utf8', function (err) {
+    fs.appendFile('./package.json', JSON.stringify(obj).replace(/,/g, ',\n'), 'utf8', (err) => {
       if (err) {
         return console.error(err);
       }
@@ -118,7 +139,7 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
   'const FILE_NAME = ' + JSON.stringify(file_name) + '\n' +
 //'export { CONFIG, FILE_NAME }'
   'module.exports = { CONFIG: CONFIG,FILE_NAME: FILE_NAME }'
-  fs.appendFile('./option/config.js', _results, 'utf8', function (err) {
+  fs.appendFile('./option/config.js', _results, 'utf8', (err) => {
     if (err) {
       return console.error(err);
     }

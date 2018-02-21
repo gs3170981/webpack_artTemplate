@@ -33,6 +33,10 @@ const Fun = {
     if (!now) {
       return old
     }
+    if (!now.res) {
+      console.error('请填写build必填项， res: res')
+      return false
+    }
     let build = {}
     for (let i in old) {
       let p = false
@@ -55,7 +59,8 @@ const build_default = {
   width: 12,
   line: 1,
   height: '100%',
-  template: 'publicTemplate/basics.html'
+  template: 'publicTemplate/basics.html',
+  res: {}
 }
 class Core { // 单个Model的创建周期
   constructor (data) {
@@ -75,17 +80,19 @@ class Core { // 单个Model的创建周期
     Fun.load_auto(this, 'handle', 'bind')
   }
   render () { // 输出
-    let build = Fun.build_default(build_default, this.data.build) // build缺省值补全
-    console.log(build)
+    let build = Fun.build_default(build_default, this.data ? this.data.build : this.data) // build缺省值补全
+    if (!build) {
+      return
+    }
     // * --- 必要START
 //  var obj = $('.content .layui-row')
-//  if (build.width >= 6) {
-//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
-//  } else if (build.width >= 4) {
-//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm6 layui-col-md' + build.width
-//  } else {
-//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
-//  }
+    if (build.width >= 6) {
+      build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
+    } else if (build.width >= 4) {
+      build.klass = 'layui-col-xs12 content-layui-col layui-col-sm6 layui-col-md' + build.width
+    } else {
+      build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
+    }
 //  if ($(obj)[0]) {
 //    // 如果有相同的则重新渲染
 //    if ($('#' + build.id)[0]) {
@@ -101,8 +108,43 @@ class Core { // 单个Model的创建周期
 //      }
 //    }
 //  }
-//  $('.content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18 " + build.class +"' style='height:" + build.height + ";margin: 0;'><div id='" + build.id + "' class='" + build.klass + "'>" + template('content/' + build.template, data) + "</div></section>")
+
+//  let path = "components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html"
+    let art = 'Consumption_Type.art.html'
+//  path = $.extend(true, [], path)
+//  path = path.toString().replace(/,/g, '')
+//  path = JSON.parse(JSON.stringify(path))
+// FUCK!!!!!!!!!!!!!!!!!!!!!!!!!
+//  let content = require.context("components", true, /^\.\/chanyejiance\/publicTemplate\/IndustryMonitoring\/((?!\/)[\s\S])+\/Consumption_Type.art\.html$/);
+//  let content = require('components/' + build.res.path)
+//  var _self = this
+//  function importAll (r) {
+//    console.log('R的值', r)
+//    r.keys().forEach(key => {
+//      if (key === './chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html') {
+//        console.log(true)
+//      }
+////      const content = require('components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html')
+//
+////      console.log('输出的值', r(key), key)
+////      $('.G-content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18' style='height:" + build.height + ";margin: 0;'><div id='" + _self.name + "' class='" + build.klass + "'>" + r(key)(_self.data) + "</div></section>")
+//    });
+//  }
+//  var asd = eval('/\\' + 'Consumption_Type.art' + '\\.html$/')
+//  console.log(asd)
+//  let ww = /\Consumption_Type.art\.html$/
+
+//	importAll(require.context("components/", true, /\.art.html$/))
+
+//  const name = 'Consumption_Type.art.html'
+
+    const content = require('chanyejiance/publicTemplate/IndustryMonitoring/' + art)
+//  importAll(require.context("components/", true, eval('/\\' + 'Consumption_Type.art' + '\\.html$/')))
+//  const content = require('components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html')
+    $('.G-content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18' style='height:" + build.height + ";margin: 0;'><div id='" + this.name + "' class='" + build.klass + "'>" + content(this.data) + "</div></section>")
     // * --- END
+//  const a = require(content)
+//  console.log(a)
   }
   bind () {
     Fun.load_auto(this, 'bind')
