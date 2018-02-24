@@ -1,7 +1,7 @@
 /* 高耦合文件,闲杂人等快快离开
  *
  * --- GS */
-console.log('\x1B[42m' + '正在构建中，请尽量等以下时间结束......\nTIPS：如果您构建过一次，建议下一次可直接执行：> npm run start' + '\x1B[49m')
+console.log('\x1B[42m' + '正在构建文件，请尽量等以下时间结束......\nTIPS：如果您构建过一次，建议下一次可直接执行：> npm run json' + '\x1B[49m')
 const fs = require("fs")
 let file_handle = {
   url: './option/json',
@@ -24,7 +24,6 @@ files.forEach((file, index) => {
   }))
   promise_arr.file_name.push(file.substring(0, file.lastIndexOf('.json')))
 })
-
 Promise.all(file_handle.promise_arr.arr).then(results => {
   let file_C = (name, build_option, del) => {
     fs.exists(name, (exists) => {
@@ -39,7 +38,7 @@ Promise.all(file_handle.promise_arr.arr).then(results => {
       })
     })
   }
-/* 给package.json添加各项目的webpack打包配置 */
+  /* 给package.json添加各项目的webpack打包配置 */
   let file_name = file_handle.promise_arr.file_name
   fs.readFile('./package.json', 'utf8', (err, data) => {
     if (err) {
@@ -48,19 +47,21 @@ Promise.all(file_handle.promise_arr.arr).then(results => {
     let obj = JSON.parse(data)
     for (let i = 0; i < file_name.length; i++) {
       obj.scripts[file_name[i]] = 'node option/build/' + file_name[i] + ' && webpack --config webpack.prod.config.js --progress';
-/* 创建项目入口JS文件 */
-      let build_inlet = `const data = require('@/option/json/`+ file_name[i] +`.json')
-const head = require('components/`+ file_name[i] +`/publicTemplate/head.art.html')
-const body = require('components/`+ file_name[i] +`/publicTemplate/body.art.html')
-window.option_data = data
-const path = '../../src/' // 不可修改!
+      /* 创建项目入口JS文件 */
+      let build_inlet = `const path = '../../src/'
+const poject_url = ` + file_name[i] + `
+const data = require('@/option/json/' + poject_url + '.json')
+const head = require('components/' + poject_url + '/publicTemplate/head.art.html')
+import { Router } from 'js/routeJSLoad.js'
+Router(data, poject_url)
 $('head').html(head({
   'root': path,
   'data': data
 }))
+require('components/' + poject_url + '/less/public.less')
 `
       file_C('./src/' + file_name[i] + '.js', build_inlet);
-/* 对build项目打包做预处理 */
+      /* 对build项目打包做预处理 */
       ((i) => {
         let build_option = `console.log('\\x1B[42m' + '正在打包预处理 --- ` + JSON.parse(results[i]).title + `' + '\\x1B[49m')
 const fs = require("fs")
@@ -96,11 +97,11 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
 `
         file_C(file_handle.build + file_name[i] + '.js', build_option)
       })(i)
-/* 对css全局样式创建 */
-//    file_C(file_handle.css_path + file_name[i] + '.less', build_option)
+      /* 对css全局样式创建 */
+      //    file_C(file_handle.css_path + file_name[i] + '.less', build_option)
     }
-/* 读取webpack.dev.config.js进行添加resolve.alias前缀 */
-     fs.readFile('./webpack.dev.config.js', 'utf8', (err, data) => {
+    /* 读取webpack.dev.config.js进行添加resolve.alias前缀 */
+    fs.readFile('./webpack.dev.config.js', 'utf8', (err, data) => {
       if (err) {
         return console.error(err)
       }
@@ -109,7 +110,7 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
       let poject_path = data.substring(poject_path_start, poject_path_end)
       let str = '\n'
       for (let i = 0; i < file_name.length; i++) {
-        str += '      "' + file_name[i] + '": _path("src/components/'+ file_name[i] +'"),\n'
+        str += '      "' + file_name[i] + '": _path("src/components/' + file_name[i] + '"),\n'
       }
       fs.unlinkSync('./webpack.dev.config.js', err => { // 删除
         if (err) throw err
@@ -120,29 +121,101 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
         }
       })
     })
-/* 对package.json做打包预处理 */
+    /* 对package.json做打包预处理 */
     fs.unlinkSync('./package.json', err => { // 删除
       if (err) throw err
     })
-/* 简单格式化并输出 */
+    /* 简单格式化并输出 */
     fs.appendFile('./package.json', JSON.stringify(obj).replace(/,/g, ',\n'), 'utf8', (err) => {
       if (err) {
         return console.error(err);
       }
     })
   })
-/* 配置项合并导出config.js可方便import依赖 */
+  /* 配置项合并导出config.js可方便import依赖 */
   fs.unlinkSync('./option/config.js', err => { // 删除
     if (err) throw err
   })
-  let _results = 'const CONFIG = [' + results + ']\n' +
-  'const FILE_NAME = ' + JSON.stringify(file_name) + '\n' +
-//'export { CONFIG, FILE_NAME }'
-  'module.exports = { CONFIG: CONFIG,FILE_NAME: FILE_NAME }'
+  let _results = 'const CONFIG = [' + results + ']\n' + 'const FILE_NAME = ' + JSON.stringify(file_name) + '\n' +
+    //'export { CONFIG, FILE_NAME }'
+    'module.exports = { CONFIG: CONFIG,FILE_NAME: FILE_NAME }'
   fs.appendFile('./option/config.js', _results, 'utf8', (err) => {
     if (err) {
       return console.error(err);
     }
   })
-
+  /* 构建components项目
+   * 思路:
+   * 1、先比较模板目录以及项目目录缺则加，有则跳过
+   * 2、创建完进行js文件以及template文件各自与json配置文件相比较，缺则加，有则跳
+   * */
+  const Fun = {
+    Folder_create(obj, callback) { // 文件夹创建
+      fs.mkdir(obj.path, function (err) {
+        if (err) {
+          console.error('创建文件夹：' + obj.name + '失败，错误码：', err);
+          typeof (callback) === 'function' && callback(false)
+          return
+        }
+        typeof (callback) === 'function' && callback(true, obj)
+      });
+    },
+    Folder_create_rec(obj, callback) { // 递归文件夹比较
+      let files_basePath = fs.readdirSync(obj.basePath)
+      let files_createPath = fs.readdirSync(obj.createPath)
+      let file_type = false
+      files_basePath.forEach((file, index) => {
+        let file_select = false // 是否找到文件
+        file.indexOf('.') === -1 ? file_type = 'folder' : file_type = 'file' // 是文件还是文件夹
+        for (let i = 0; i < files_createPath.length; i++) {
+          if (files_createPath[i] === file) {
+            file_select = true
+            break
+          }
+        }
+        if (file_select) { // 找到的话
+          if (file_type === 'folder') { // 文件夹的话递归找里面的文件
+            this.Folder_create_rec({
+              basePath: obj.basePath + file + '/',
+              createPath: obj.createPath + file + '/'
+            })
+          }
+        } else { // 找不到的话
+          if (file_type === 'folder') { // 文件夹的话创建后递归再找里面的文件（一定是找不到的，毕竟文件夹都没，所以里面一定会判断到文件无并创建）
+            this.Folder_create({
+              path: obj.createPath + '/' + file,
+              name: file
+            }, (is, objj) => {
+              if (is) {
+                this.Folder_create_rec({
+                  basePath: obj.basePath + file + '/',
+                  createPath: objj.path + '/'
+                })
+              }
+            })
+          } else { // 是文件则创建
+            fs.readFile(obj.basePath + file, 'utf8', (err, data) => { // 读取base文件
+              if (err) {
+                console.error('读取文件：' + file + '失败，错误码：', err);
+                return
+              }
+              fs.appendFile(obj.createPath + file, data, 'utf8', function (err) {
+                if (err) {
+                  console.error('创建文件：' + file + '失败，错误码：', err);
+                  return
+                }
+              })
+            })
+          }
+        }
+      })
+    }
+  }
+  /* 1、先比较模板目录以及项目目录缺则加，有则跳过 */
+  for (let i = 0; i < results.length; i++) { // 下次再写，就是无bailidujuan文件夹的时候会报错，要先创建
+    Fun.Folder_create_rec({
+      basePath: './tool/baseFile_create/',
+      createPath: './src/components/' + file_name[i] + '/'
+    })
+  }
 })

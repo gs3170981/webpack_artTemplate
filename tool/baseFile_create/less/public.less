@@ -1,340 +1,50 @@
-.content-mod {
-  /*background: rgba(0,0,0,.3);*/
-  /*color: #8c8c8c;*/
-  /*font-size: .15rem;*/
-  font-size: .14rem;
-  height: 100%;
-  background: white;
-  overflow: hidden;
-  border-radius: .03rem;
-  /*border: 1px solid #b7b7b7;*/
-}
-
-.content-mod-title {
-  height: .4rem;
-  line-height: .4rem;
-  padding-left: .18rem;
-  font-size: .14rem;
-  background: rgba(0, 0, 0, .12);
-}
-
-.h100 {
-  height: 100%;
-}
-
-.holiday-list {
-  position: relative;
-}
-
-.holiday-list .item {
-  position: absolute;
-  height: 2rem;
-  width: 1.3rem;
-  left: -.3rem;
-  background: rgba(50, 90, 91, .9);
-  color: white;
-  overflow: hidden;
-  overflow-y: auto;
-  z-index: 1;
-  visibility: hidden;
-  text-align: center;
-}
-
-.holiday-list a {
-  color: #8c8c8c;
-}
-
-.holiday-list .item li {
-  width: 100%;
-  float: none;
-  cursor: pointer;
-}
-
-.holiday-list .item li:hover {
-  background: rgb(0, 150, 136);
-}
-
-.layui-table td,
-.layui-table th {
-  cursor: default;
-  min-height: .35rem!important;
-  height: .35rem!important;
-  padding: 0!important;
-  text-align: center!important;
-  line-height: .35rem!important;
-  font-size: .13rem;
-}
-
-.layui-laypage .layui-laypage-curr .layui-laypage-em {
-  background-color: #009cff!important;
-}
-
-.content-layui-col {
-  /*background: white;*/
-  /*这是标识,误删*/
-}
-
-.content-mod-timer {
-  height: .30rem;
-  line-height: .30rem;
-  /*overflow: hidden;*/
-}
-
-.content-mod-timer li {
-  float: right;
-  margin-right: .10rem;
-}
-
-.content-mod-timer li:first-child {
-  margin-right: .20rem;
-}
-
-.content-mod-timer .hand:hover {
-  animation: mymove .3s;
-  -webkit-animation: mymove .3s;
-  animation-fill-mode: forwards;
-}
-
-.content-mod-timer .icon {
-  /*font-size: .12rem;*/
-  font-size: .12rem;
-}
-
-.layui-nav-tree {
-  width: 2rem!important;
-  height: 100%;
-  overflow: hidden;
-  /*overflow-y: auto;*/
-}
-
-.layui-nav-tree .layui-nav-item a {
-  height: .45rem!important;
-  line-height: .45rem;
-}
-
+// layui 样式重置
 .layui-side-scroll {
-  width: 100%!important;
-  /*overflow-y: hidden;*/
+    width: 100%;
 }
-
-.layui-layout-admin .layui-side {
-  width: 2rem!important;
-}
-
-.layui-layout-admin .layui-body {
-  top: .55rem!important;
-  background: #f3f6ff;
-}
-
 .layui-body {
-  left: 2rem!important;
+    bottom: 44px;
+    padding: 5px;
 }
 
-.layui-nav * {
-  font-size: .14rem!important;
+.G-layui-nav-tree {
+    width: 100%;
+    background-color: #393D49;
+    font-size: 0;
+    color: white!important;
+    a {
+        line-height: 45px;
+        display: block;
+        color: rgba(255,255,255,.7);
+        padding: 0 20px;
+        cursor: pointer;
+        transition: all .2s ease;
+        &:hover {
+            color: white;
+            background: #4E5465;
+        }
+        i {
+            line-height: 45px;
+            transition: all .2s ease;
+        }
+    }
+    .active {
+        color: #009688;
+    }
+    .child_show {
+        max-height: 200px!important;
+//      overflow-y: auto!important;
+    }
+    .G-item {
+        display: block;
+        transition: max-height .2s ease;
+        background-color: rgba(0, 0, 0, .3);
+        line-height: 36px;
+        max-height: 0;
+        overflow: hidden;
+//      overflow-y: auto;
+    }
 }
-
-.layui-header {
-  /*z-index: 1!important;*/
-}
-
-.layui-side {
-  z-index: 1!important;
-}
-
-.layui-laypage {
-  margin: .12rem 0 0!important;
-}
-
-.layui-laypage a,
-.layui-laypage span {
-  height: .28rem!important;
-  padding: 0 .15rem!important;
-  font-size: .12rem;
-  line-height: .28rem!important;
-  margin: 0 -.01rem .05rem 0.05rem!important;
-}
-
-.layui-btn {
-  font-size: .14rem;
-  height: .38rem;
-  line-height: .38rem;
-  padding: 0;
-  padding: 0 .18rem;
-}
-
-.layui-input,
-.layui-textarea {
-  padding-left: .1rem;
-}
-
-.layui-input,
-.layui-select,
-.layui-textarea {
-  height: .38rem;
-  width: 2.25rem;
-  line-height: .38rem;
-  border: .01rem solid #e6e6e6;
-  border-radius: .02rem;
-}
-
-.layui-form-label {
-  padding: .09rem 0 .09rem 0;
-  width: auto;
-  text-align: left;
-}
-
-.layui-tab-title .layui-this {
-  background: #f8f9fb;
-  color: black;
-}
-
-.layui-tab-title li {
-  color: #474b4d;
-  border-bottom: 1px solid white;
-  transition: all .2s ease;
-}
-
-.layui-tab-title li:hover {
-  border-bottom: 1px solid #3e9bfa;
-  color: black;
-}
-
-.layui-form-select dl dd.layui-this {
-  background-color: #009cff;
-}
-
-body .layui-laydate .layui-this {
-  background-color: #009cff!important;
-}
-
-body .layui-laydate-content td.laydate-selected {
-  background-color: #a6dcff
-}
-
-body .laydate-selected:hover {
-  background-color: #72c1f4!important;
-  color: white!important;
-}
-
-.default {
-  cursor: default;
-}
-
-.hand {
-  cursor: pointer;
-}
-
-.content-echarts {
-  padding: .10rem;
-  padding-right: .20rem;
-  /*width: 100%;*/
-}
-
-.content-mod-timer .active {
-  color: #1E9FFF;
-}
-
-.layui-col-space18>* {
-  padding: .09rem;
-}
-
-
-/* 表格重置样式Start */
-
-.layui-table tbody tr:hover,
-.layui-table-hover {
-  background-color: #f3f6ff!important;
-}
-
-.layui-table thead tr,
-.layui-table-fixed-l tr,
-.layui-table-header,
-.layui-table-mend,
-.layui-table-patch,
-.layui-table-tool {
-  background-color: #f8f7fc;
-}
-
-.layui-table td,
-.layui-table th,
-.layui-table-header,
-.layui-table-tool,
-.layui-table-view,
-.layui-table[lay-skin=row],
-.layui-table[lay-skin=line] {
-  border: .01rem solid #e3e1ec;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.layui-laypage a,
-.layui-laypage button,
-.layui-laypage input,
-.layui-laypage select,
-.layui-laypage span {
-  border: .01rem solid #e3e1ec;
-}
-
-.layui-nav .layui-nav-item a {
-  padding: 0 .2rem;
-}
-
-.layui-table {
-  color: #596176;
-  table-layout: fixed;
-}
-
-.layui-table th {
-  color: black;
-}
-
-
-/* END */
-
-@keyframes mymove {
-  from {
-    color: #8c8c8c;
-  }
-  to {
-    color: #1E9FFF;
-  }
-}
-
-@-webkit-keyframes mymove {
-  from {
-    color: #8c8c8c;
-  }
-  to {
-    color: #1E9FFF;
-  }
-}
-
-.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  background: currentColor;
-}
-
-.content-mod-det {
-  overflow: hidden;
-  padding: .18rem;
-  height: 92%;
-}
-
-
-/* fa */
-
-.fa {
-  cursor: pointer;
-}
-
-.fa-check:hover::after {
-  content: '提交';
-  position: absolute;
-  top: -0.9em;
-  right: 0;
-  color: white;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 0.06rem;
-  border-radius: .05rem;
+.G-content {
+    height: 100%;
 }

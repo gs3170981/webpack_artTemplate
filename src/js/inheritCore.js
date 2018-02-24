@@ -11,7 +11,9 @@ const Fun = {
       return
     }
     if (!self.data[now]) { // 如缺省则跳过进行下一个函数周期
-      self[next]()
+      if (self[next]) {
+        self[next]()
+      }
       return
     }
     if (self.data[now].length !== 1) {
@@ -52,16 +54,25 @@ const Fun = {
       }
     }
     return build
+  },
+  mounted_diy (_self, Core) {
+    for (let i = 0; i < _self.data.length; i++) {
+      _this[_self.data[i].name] = _self.data[i]
+    }
+    for (let i = 0; i < _self.data.length; i++) {
+      new Core(_self.data[i])
+    }
+    _self.beforeDestroy()
   }
 }
 const _this = {}
-const build_default = {
-  width: 12,
-  line: 1,
-  height: '100%',
-  template: 'publicTemplate/basics.html',
-  res: {}
-}
+//const build_default = {
+//width: 12,
+//line: 1,
+//height: '100%',
+//template: 'publicTemplate/basics.html',
+//res: {}
+//}
 class Core { // 单个Model的创建周期
   constructor (data) {
     this.data = data
@@ -80,19 +91,19 @@ class Core { // 单个Model的创建周期
     Fun.load_auto(this, 'handle', 'bind')
   }
   render () { // 输出
-    let build = Fun.build_default(build_default, this.data ? this.data.build : this.data) // build缺省值补全
-    if (!build) {
-      return
-    }
+//  let build = Fun.build_default(build_default, this.data ? this.data.build : this.data) // build缺省值补全
+//  if (!build) {
+//    return
+//  }
     // * --- 必要START
 //  var obj = $('.content .layui-row')
-    if (build.width >= 6) {
-      build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
-    } else if (build.width >= 4) {
-      build.klass = 'layui-col-xs12 content-layui-col layui-col-sm6 layui-col-md' + build.width
-    } else {
-      build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
-    }
+//  if (build.width >= 6) {
+//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
+//  } else if (build.width >= 4) {
+//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm6 layui-col-md' + build.width
+//  } else {
+//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
+//  }
 //  if ($(obj)[0]) {
 //    // 如果有相同的则重新渲染
 //    if ($('#' + build.id)[0]) {
@@ -110,7 +121,7 @@ class Core { // 单个Model的创建周期
 //  }
 
 //  let path = "components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html"
-    let art = 'Consumption_Type.art.html'
+//  let art = 'Consumption_Type.art.html'
 //  path = $.extend(true, [], path)
 //  path = path.toString().replace(/,/g, '')
 //  path = JSON.parse(JSON.stringify(path))
@@ -138,10 +149,11 @@ class Core { // 单个Model的创建周期
 
 //  const name = 'Consumption_Type.art.html'
 
-    const content = require('chanyejiance/publicTemplate/IndustryMonitoring/' + art)
+//  const content = require('components/'+ build.res.path +'/publicTemplate/' + art + '.art.html')
+//  console.log(content)
 //  importAll(require.context("components/", true, eval('/\\' + 'Consumption_Type.art' + '\\.html$/')))
 //  const content = require('components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html')
-    $('.G-content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18' style='height:" + build.height + ";margin: 0;'><div id='" + this.name + "' class='" + build.klass + "'>" + content(this.data) + "</div></section>")
+//  $('.G-content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18' style='height:" + build.height + ";margin: 0;'><div id='" + this.name + "' class='" + build.klass + "'>" + content(this.data) + "</div></section>")
     // * --- END
 //  const a = require(content)
 //  console.log(a)
@@ -161,13 +173,14 @@ class Arr { // 生命周期
     this.mounted()
   }
   mounted () {
-    for (let i = 0; i < this.data.length; i++) {
-      _this[this.data[i].name] = this.data[i]
-    }
-    for (let i = 0; i < this.data.length; i++) {
-      new Core(this.data[i])
-    }
-    this.beforeDestroy()
+    Fun.mounted_diy(this, Core) // 为了传参继承只能挂出去
+//  for (let i = 0; i < this.data.length; i++) {
+//    _this[this.data[i].name] = this.data[i]
+//  }
+//  for (let i = 0; i < this.data.length; i++) {
+//    new Core(this.data[i])
+//  }
+//  this.beforeDestroy()
   }
   beforeDestroy () {
     Fun.cycle_judge(this.other, 'beforeDestroy')

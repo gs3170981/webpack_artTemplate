@@ -1,14 +1,16 @@
 const CONFIG = [{
-  "title": "百里杜鹃系统后台",
-  "url": "http://172.17.10.55:17011",
+  "title": "百里杜鹃后台",
+  "url": "http://172.10.51.123:10186",
   "menu": [
     {
       "title": "产业监测",
       "fa": "fa-cube",
       "href": "!/IndustryMonitoring",
-      "module": ["table", "content"],
       "child": [
         {
+          "title": "消费类型统计",
+          "href": "@/Consumption_Type1"
+        }, {
           "title": "消费类型统计",
           "href": "/Consumption_Type",
           "module": ["table", "content"]
@@ -24,6 +26,16 @@ const CONFIG = [{
           ]
         }
       ]
+    }
+  ],
+  "AloneRouter": [{
+      "title": "独立路由A",
+      "href": "/A",
+      "module": ["open", "det"]
+    }, {
+      "title": "独立路由B",
+      "href": "/B",
+      "module": ["only", "more"]
     }
   ]
 }

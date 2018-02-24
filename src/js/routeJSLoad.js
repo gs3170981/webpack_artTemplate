@@ -23,6 +23,7 @@ const Fun = (r, path) => {
     window.INDEX = true
   }
   router_js = require('components/' + path + '/js/main/' + url + '.js')
+  $('.G-content').html('') // 清空内容，要注意的是这里参合了项目样式，请勿改动子项目的G-content样式名
   router_js.default(data)
 }
 const Router = (r, path) => {

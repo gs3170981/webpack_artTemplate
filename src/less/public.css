@@ -12,12 +12,27 @@ html, body { height: 100%;overflow: hidden;}
 .content-layui-col {
     position: relative;
     height: 100%;
+    padding: 5px;
+}
+.content-mod {
+  height: 98%;
+  /*box-sizing: border-box;*/
+  border: 5px solid #696969;
+}
+.content-mod-title {
+  height: 5%;
+}
+.content-mod-det {
+  height: 95%;
 }
 /* 公用样式库 */
 .rotate_180 {
   transform: rotate(180deg);
 }
 /* 滚动条样式 */
+.scorll_style1 {
+  overflow: auto;
+}
 .scorll_style1::-webkit-scrollbar-thumb {
     background-color: #000000;
 }

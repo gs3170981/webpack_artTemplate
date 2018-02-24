@@ -19,15 +19,32 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /.art.html$/,
-      use: ['art-template-loader']
-    }, {
-      test: /\.(less|css)$/, // 这里除了安装loader之外还要yarn add less 这尼玛的
-      use: ['style-loader', 'css-loader', 'less-loader'],
-    }, {
-      test: /\.(png|jpg)$/, // 没这个require-css的时候图片加载不进 - 还是有些问题，最后换base64解决
-      loader: 'url-loader?limit=25000&name=images/[hash:8].[name].[ext]'
-    }]
+        test: /\.js$/,
+//      exclude: /node_modules/,
+        loader: 'babel-loader'
+      }, {
+        test: /.art.html$/,
+        use: ['art-template-loader']
+      }, {
+        test: /\.(less|css)$/, // 这里除了安装loader之外还要yarn add less 这尼玛的
+        use: ['style-loader', 'css-loader', 'less-loader'],
+      },
+      //  {
+      //    test: /\.(eot|svg|ttf|woff|woff2|png)\w*/,
+      //    loader: 'file'
+      //  },
+      {
+
+//      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+//      loader: "url-loader?limit=10000&mimetype=application/font-woff"
+
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=10000'
+      }, {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
+      }
+    ]
   },
   resolve: {
     //查找module的话从这里开始查找
@@ -40,12 +57,15 @@ module.exports = {
       'img': _path('src/img'),
       'static': _path('src/static'),
       'js': _path('src/js'),
-      //    'plugin': _path('src/js/plugin'),
-      //    'logic': _path('src/js/logic'),
+      'less': _path('src/less'),
+      'fonts': _path('src/fonts'),
       '@': __dirname,
-      //    'css': _path('src/css'),
-      'main': _path('src/js/logic/main')
-      //    'plug': _path('plug')
+      'main': _path('src/js/logic/main'),
+      /* 警告：此标记不可删除（被依赖于build_auto构建工具） */
+// TODO START
+      "bailidujuan": _path("src/components/bailidujuan"),
+      "chanyejiance": _path("src/components/chanyejiance"),
+// TODO END
     }
   },
   plugins: [

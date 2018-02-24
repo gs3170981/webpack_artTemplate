@@ -1,8 +1,9 @@
 
-import { Arr, _this } from "js/inheritCore.js"
+//import { Arr, _this } from "js/inheritCore.js"
+import { Arr, _this } from "chanyejiance/js/inheritCore_extend.js"
 //import { Arr, _this } from "../inheritCore_extend.js"
-import body from "../../publicTemplate/body.art.html"
-import { Router } from 'js/routeJSLoad.js'
+import body from "chanyejiance/publicTemplate/body.art.html"
+//import { Router } from 'js/routeJSLoad.js'
 export default res => new Arr([{
   //data: {
   //  title: '全域大数据分析展示平台',
@@ -15,14 +16,14 @@ export default res => new Arr([{
   //},
   name: 'main',
   init() {
-    console.log(1)
+    console.log('index', 1)
   },
   ajax() {
-    console.log(2)
+    console.log('index', 2)
   },
   handle() {
     //  console.log(3)
-    console.log(3, res, _this)
+    console.log('index', 3, res, _this)
     this.render() // 输出
   },
   render() { // 覆盖了body下chanyejiance.js的引入，不知有没有问题
@@ -44,7 +45,7 @@ export default res => new Arr([{
         console.log(data)
       })
     })
-    console.log(5)
+    console.log('index', 5)
     $('.G-layui-nav-tree a').off('click').click(function () {
       let child = $(this).next()
       if (child.hasClass('G-item')) {

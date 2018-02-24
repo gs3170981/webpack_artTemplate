@@ -1,0 +1,26 @@
+{{if (option)}}
+  <dd id="{{build.id}}-echarts" class="content-echarts"></dd>
+  <script>
+    /*先计算填充剩余的高度 && 初始化布局不要闭包否则切换图无法自适应*/
+    $("#{{build.id}}-echarts").height($('#{{build.id}}').height() - $('#{{build.id}}').find('.content-mod-title').height() - $('#{{build.id}}').find('.content-mod-det').height() - parseInt($("#{{build.id}}-echarts").css('padding-top')) * 2 - parseInt($('#{{build.id}}').find('.content-mod-det').css('padding-top')));
+    var dom = $("#{{build.id}}-echarts")[0];
+    var myChart = echarts.init(dom, 'echarts-style_green');
+    console.log('{{#option}}');
+    myChart.setOption(JSON.parse('{{#option}}'));
+    myChart.name = '{{build.id}}';
+    console.log(JSON.parse('{{#switchE_def}}'));
+    /*图表的自适应*/
+    for (var i = 0; i < window.charts.length; i++) {
+      if (window.charts[i].name === myChart.name) {
+        window.charts.splice(i, 1);
+        break;
+      }
+    }
+    window.charts.push(myChart);
+    $(window).off('resize').resize(function () {
+      for (var i = 0; i < window.charts.length; i++) {
+        charts[i].resize();
+      }
+    });
+  </script>
+{{/if}}
