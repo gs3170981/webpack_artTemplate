@@ -213,6 +213,21 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
   }
   /* 1、先比较模板目录以及项目目录缺则加，有则跳过 */
   for (let i = 0; i < results.length; i++) { // 下次再写，就是无bailidujuan文件夹的时候会报错，要先创建
+//  console.log(results[i].)
+//  if (!file_is) {
+//    console.log('\x1B[32m' + '发现新项目：' + conf.title + '(' + file_name[i] + ')\n正在构建中......' + '\x1B[39m')
+//    Fun.Folder_create({ // 创建项目目录
+//      name: file_name[i],
+//      path: './src/components/' + file_name[i]
+//    }, (is, obj) => {
+//      if (is) { // 成功的话创建子目录
+//        Fun.Folder_create_rec({
+//          basePath: './tool/baseFile_create/',
+//          createPath: obj.path + '/'
+//        })
+//      }
+//    })
+//  }
     Fun.Folder_create_rec({
       basePath: './tool/baseFile_create/',
       createPath: './src/components/' + file_name[i] + '/'
