@@ -177,7 +177,8 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
           if (file_type === 'folder') { // 文件夹的话递归找里面的文件
             this.Folder_create_rec({
               basePath: obj.basePath + file + '/',
-              createPath: obj.createPath + file + '/'
+              createPath: obj.createPath + file + '/',
+              name: obj.name
             })
           }
         } else { // 找不到的话
@@ -189,19 +190,21 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
               if (is) {
                 this.Folder_create_rec({
                   basePath: obj.basePath + file + '/',
-                  createPath: objj.path + '/'
+                  createPath: objj.path + '/',
+                  name: obj.name
                 })
               }
             })
           } else { // 是文件则创建
             fs.readFile(obj.basePath + file, 'utf8', (err, data) => { // 读取base文件
               if (err) {
-                console.error('读取文件：' + file + '失败，错误码：', err);
+                console.error('读取文件：' + file + '失败，错误码：', err)
                 return
               }
-              fs.appendFile(obj.createPath + file, data, 'utf8', function (err) {
+              // 创建源文件时进行的操作
+              fs.appendFile(obj.createPath + file, file === 'inheritCore_extend.js' ? data.replace(/@@@/, obj.name) : data, 'utf8', function (err) {
                 if (err) {
-                  console.error('创建文件：' + file + '失败，错误码：', err);
+                  console.error('创建文件：' + file + '失败，错误码：', err)
                   return
                 }
               })
@@ -213,24 +216,34 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
   }
   /* 1、先比较模板目录以及项目目录缺则加，有则跳过 */
   for (let i = 0; i < results.length; i++) { // 下次再写，就是无bailidujuan文件夹的时候会报错，要先创建
-//  console.log(results[i].)
-//  if (!file_is) {
-//    console.log('\x1B[32m' + '发现新项目：' + conf.title + '(' + file_name[i] + ')\n正在构建中......' + '\x1B[39m')
-//    Fun.Folder_create({ // 创建项目目录
-//      name: file_name[i],
-//      path: './src/components/' + file_name[i]
-//    }, (is, obj) => {
-//      if (is) { // 成功的话创建子目录
-//        Fun.Folder_create_rec({
-//          basePath: './tool/baseFile_create/',
-//          createPath: obj.path + '/'
-//        })
-//      }
-//    })
-//  }
-    Fun.Folder_create_rec({
-      basePath: './tool/baseFile_create/',
-      createPath: './src/components/' + file_name[i] + '/'
-    })
+    let project = fs.readdirSync('./src/components/')
+    let is = false
+    for (let j = 0; j < project.length; j++) {
+      if (project[j] === file_name[i]) {
+        is = true
+        break
+      }
+    }
+    if (!is) {
+      console.log('\x1B[32m' + '发现新项目：' + JSON.parse(results[i]).title + '(' + file_name[i] + ')\n正在构建中......' + '\x1B[39m')
+      Fun.Folder_create({ // 创建项目目录
+        name: file_name[i],
+        path: './src/components/' + file_name[i]
+      }, (is, obj) => {
+        if (is) {
+          Fun.Folder_create_rec({ // 只写一条会因为异步报错
+            basePath: './tool/baseFile_create/',
+            createPath: './src/components/' + file_name[i] + '/',
+            name: obj.name
+          })
+        }
+      })
+    } else {
+      Fun.Folder_create_rec({ // 只写一条会因为异步报错
+        basePath: './tool/baseFile_create/',
+        createPath: './src/components/' + file_name[i] + '/',
+        name: file_name[i]
+      })
+    }
   }
 })
