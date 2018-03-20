@@ -1,4 +1,4 @@
-import { Arr, _this } from "@@/js/inheritCore_extend.js"
+import { Arr, _this } from "@@@/js/inheritCore_extend.js"
 export default res => new Arr([{
   data: {
     title: '展示数据',

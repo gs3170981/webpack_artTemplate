@@ -157,6 +157,7 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
           typeof (callback) === 'function' && callback(false)
           return
         }
+        console.log('检索到新文件夹 --- 创建', obj.path)
         typeof (callback) === 'function' && callback(true, obj)
       });
     },
@@ -202,7 +203,8 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
                 return
               }
               // 创建源文件时进行的操作
-              fs.appendFile(obj.createPath + file, file === 'inheritCore_extend.js' ? data.replace(/@@@/, obj.name) : data, 'utf8', function (err) {
+              fs.appendFile(obj.createPath + file, (file === 'inheritCore_extend.js' || file === 'index.js') ? data.replace(/@@@/g, obj.name) : data, 'utf8', function (err) {
+                console.log('检索到新JS文件 --- 创建', obj.createPath + file)
                 if (err) {
                   console.error('创建文件：' + file + '失败，错误码：', err)
                   return

@@ -70,7 +70,6 @@ module.exports = {
 // TODO START
       "bailidujuan": _path("src/components/bailidujuan"),
       "chanyejiance": _path("src/components/chanyejiance"),
-      "zhengkun": _path("src/components/zhengkun"),
 // TODO END
     }
   },
