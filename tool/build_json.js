@@ -203,13 +203,13 @@ for (let i = 0; i < project.length; i++) {
       if (is) {
         Fun.js_r({ // 对js/content下创建 --- 集成模板
           data: CONFIG[obj.i].menu,
-          path: './src/components/' + project[obj.i] + '/content',
+          path: './src/components/' + project[obj.i] + '/publicTemplate/content',
           js_data: data,
           name: FILE_NAME[obj.i]
         }, 'art') // 这里增加函数复杂性了，进入art模板创建判断
         Fun.js_r({ // 对js/content下创建 --- 独立模板
           data: CONFIG[obj.i].AloneRouter,
-          path: './src/components/' + project[obj.i] + '/content',
+          path: './src/components/' + project[obj.i] + '/publicTemplate/content',
           js_data: data,
           name: FILE_NAME[obj.i]
         }, 'art')

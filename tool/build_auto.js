@@ -49,7 +49,7 @@ Promise.all(file_handle.promise_arr.arr).then(results => {
       obj.scripts[file_name[i]] = 'node option/build/' + file_name[i] + ' && webpack --config webpack.prod.config.js --progress';
       /* 创建项目入口JS文件 */
       let build_inlet = `const path = '../../src/'
-const poject_url = ` + file_name[i] + `
+const poject_url = '` + file_name[i] + `'
 const data = require('@/option/json/' + poject_url + '.json')
 const head = require('components/' + poject_url + '/publicTemplate/head.art.html')
 import { Router } from 'js/routeJSLoad.js'

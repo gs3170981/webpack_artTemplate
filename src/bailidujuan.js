@@ -1,8 +1,11 @@
-//const data = require('@/option/json/bailidujuan.json')
-//const head = require('components/bailidujuan/publicTemplate/head.art.html')
-//const body = require('components/bailidujuan/publicTemplate/body.art.html')
-//const path = '../../src/' // 不可修改!
-//$('head').html(head({
-//'root': path,
-//'data': data
-//}))
+const path = '../../src/'
+const poject_url = 'bailidujuan'
+const data = require('@/option/json/' + poject_url + '.json')
+const head = require('components/' + poject_url + '/publicTemplate/head.art.html')
+import { Router } from 'js/routeJSLoad.js'
+Router(data, poject_url)
+$('head').html(head({
+  'root': path,
+  'data': data
+}))
+require('components/' + poject_url + '/less/public.less')

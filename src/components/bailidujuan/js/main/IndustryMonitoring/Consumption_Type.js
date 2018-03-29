@@ -6,7 +6,8 @@ export default res => new Arr([{
       width: 12,
       line: 1, // 每到新的一行必写父级元素高
       height: '100%', // 例如此处
-      res: res
+      res: res,
+      template: 'content/@@'
     }
   },
   handle () {
