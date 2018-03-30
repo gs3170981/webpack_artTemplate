@@ -150,7 +150,10 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
    * 2、创建完进行js文件以及template文件各自与json配置文件相比较，缺则加，有则跳
    * */
   const Fun = {
-    Folder_create(obj, callback) { // 文件夹创建
+    Reg (val) { // 正则匹配图片
+      return /jpg|png|jpeg|gif|bmp|psd/.test(val)
+    },
+    Folder_create (obj, callback) { // 文件夹创建
       fs.mkdir(obj.path, function (err) {
         if (err) {
           console.error('创建文件夹：' + obj.name + '失败，错误码：', err);
@@ -161,7 +164,7 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
         typeof (callback) === 'function' && callback(true, obj)
       });
     },
-    Folder_create_rec(obj, callback) { // 递归文件夹比较
+    Folder_create_rec (obj, callback) { // 递归文件夹比较
       let files_basePath = fs.readdirSync(obj.basePath)
       let files_createPath = fs.readdirSync(obj.createPath)
       let file_type = false
@@ -197,13 +200,14 @@ fs.readFile('./src/` + file_name[i] + `.js', 'utf8', (err, data) => {
               }
             })
           } else { // 是文件则创建
-            fs.readFile(obj.basePath + file, 'utf8', (err, data) => { // 读取base文件
+            let code = Fun.Reg(file) ? 'base64' : 'utf8'
+            fs.readFile(obj.basePath + file, code, (err, data) => { // 读取base文件
               if (err) {
                 console.error('读取文件：' + file + '失败，错误码：', err)
                 return
               }
               // 创建源文件时进行的操作
-              fs.appendFile(obj.createPath + file, (file === 'inheritCore_extend.js' || file === 'index.js') ? data.replace(/@@@/g, obj.name) : data, 'utf8', function (err) {
+              fs.appendFile(obj.createPath + file, (file === 'inheritCore_extend.js' || file === 'index.js') ? data.replace(/@@@/g, obj.name) : data, code, function (err) {
                 console.log('检索到新JS文件 --- 创建', obj.createPath + file)
                 if (err) {
                   console.error('创建文件：' + file + '失败，错误码：', err)

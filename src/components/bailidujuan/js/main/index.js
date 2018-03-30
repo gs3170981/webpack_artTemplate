@@ -12,14 +12,14 @@ export default res => new Arr([{
   //},
   name: 'main',
   init() {
-    console.log('index', 1)
+//  console.log('index', 1)
   },
   ajax() {
-    console.log('index', 2)
+//  console.log('index', 2)
   },
   handle() {
     //  console.log(3)
-    console.log('index', 3, res, _this)
+//  console.log('index', 3, res, _this)
     this.render() // 输出
   },
   render() {
@@ -41,7 +41,7 @@ export default res => new Arr([{
         console.log(data)
       })
     })
-    console.log('index', 5)
+//  console.log('index', 5)
     $('.G-layui-nav-tree a').off('click').click(function () {
       let child = $(this).next()
       if (child.hasClass('G-item')) {

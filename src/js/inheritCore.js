@@ -91,72 +91,7 @@ class Core { // 单个Model的创建周期
     Fun.load_auto(this, 'handle', 'bind')
   }
   render () { // 输出
-//  let build = Fun.build_default(build_default, this.data ? this.data.build : this.data) // build缺省值补全
-//  if (!build) {
-//    return
-//  }
-    // * --- 必要START
-//  var obj = $('.content .layui-row')
-//  if (build.width >= 6) {
-//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
-//  } else if (build.width >= 4) {
-//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm6 layui-col-md' + build.width
-//  } else {
-//    build.klass = 'layui-col-xs12 content-layui-col layui-col-sm12 layui-col-md' + build.width
-//  }
-//  if ($(obj)[0]) {
-//    // 如果有相同的则重新渲染
-//    if ($('#' + build.id)[0]) {
-//      var objParent = $('#' + build.id).parent()
-//      $('#' + build.id).html(template('content/' + build.template, data))
-//      return
-//    }
-//    for (var i = 0; i < obj.length; i++) {
-//      var h = parseInt($(obj[i]).attr('data-line'))
-//      if (build.line === h) {
-//        $(obj[i]).append('<div id="' + build.id + '" style="height: '+ build.height +'" class="' + build.klass + '">' + template('content/' + build.template, data) + '</div>')
-//        return
-//      }
-//    }
-//  }
 
-//  let path = "components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html"
-//  let art = 'Consumption_Type.art.html'
-//  path = $.extend(true, [], path)
-//  path = path.toString().replace(/,/g, '')
-//  path = JSON.parse(JSON.stringify(path))
-// FUCK!!!!!!!!!!!!!!!!!!!!!!!!!
-//  let content = require.context("components", true, /^\.\/chanyejiance\/publicTemplate\/IndustryMonitoring\/((?!\/)[\s\S])+\/Consumption_Type.art\.html$/);
-//  let content = require('components/' + build.res.path)
-//  var _self = this
-//  function importAll (r) {
-//    console.log('R的值', r)
-//    r.keys().forEach(key => {
-//      if (key === './chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html') {
-//        console.log(true)
-//      }
-////      const content = require('components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html')
-//
-////      console.log('输出的值', r(key), key)
-////      $('.G-content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18' style='height:" + build.height + ";margin: 0;'><div id='" + _self.name + "' class='" + build.klass + "'>" + r(key)(_self.data) + "</div></section>")
-//    });
-//  }
-//  var asd = eval('/\\' + 'Consumption_Type.art' + '\\.html$/')
-//  console.log(asd)
-//  let ww = /\Consumption_Type.art\.html$/
-
-//	importAll(require.context("components/", true, /\.art.html$/))
-
-//  const name = 'Consumption_Type.art.html'
-
-//  const content = require('components/'+ build.res.path +'/publicTemplate/' + art + '.art.html')
-//  console.log(content)
-//  importAll(require.context("components/", true, eval('/\\' + 'Consumption_Type.art' + '\\.html$/')))
-//  const content = require('components/chanyejiance/publicTemplate/IndustryMonitoring/Consumption_Type.art.html')
-//  $('.G-content').append("<section data-line=" + build.line + " class='layui-row layui-col-space18' style='height:" + build.height + ";margin: 0;'><div id='" + this.name + "' class='" + build.klass + "'>" + content(this.data) + "</div></section>")
-    // * --- END
-//  const a = require(content)
-//  console.log(a)
   }
   bind () {
     Fun.load_auto(this, 'bind')
@@ -166,7 +101,20 @@ class Arr { // 生命周期
   constructor(data, other) {
     this.data = data
     this.other = other
+    this.beforeCreated()
+  }
+  beforeCreated () {
+    if (this && this.other && this.other['beforeCreated']) {
+      addEventListener('hashchange', this.other['beforeCreated'](), false)
+      removeEventListener('hashchange', this.other['beforeCreated'], false)
+    }
     this.created()
+//  if ()
+//  function asd () {
+//    debugger
+//  }
+//  addEventListener('hashchange', asd(), false)
+//  removeEventListener('hashchange', asd, false)
   }
   created () {
     Fun.cycle_judge(this.other, 'created')
@@ -184,6 +132,18 @@ class Arr { // 生命周期
   }
   beforeDestroy () {
     Fun.cycle_judge(this.other, 'beforeDestroy')
+    this.hashchange()
+
+  }
+  hashchange () {
+    if (this && this.other && this.other['hashchange']) {
+      let retF = this.other['hashchange']
+      let _f = r => {
+        retF()()
+        removeEventListener('hashchange', _f, false)
+      }
+      addEventListener('hashchange', _f, false)
+    }
     this.destroyed()
   }
   destroyed () {

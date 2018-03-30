@@ -16,7 +16,8 @@ class Core_extend extends Core {
     if (!build) {
       return
     }
-    this.name = this.name ? this.name : 'G' + Math.random().toString().slice(2) // 尽量要写自己name
+    let _build = this.data.build
+    this.name = _build.name ? _build.name : 'G' + Math.random().toString().slice(2) // 尽量要写自己name
     /* 这行可能会出BUG，就是该死的require解析机制FUCK!!! */
     // TODO START
     const content = require('bailidujuan/publicTemplate/' + build.template + '.art.html')
@@ -48,8 +49,8 @@ class Core_extend extends Core {
   }
 }
 class Arr_extend extends Arr {
-  constructor(data) {
-    super(data)
+  constructor(data, other) {
+    super(data, other)
   }
   mounted () {
     Fun.mounted_diy(this, Core_extend)
