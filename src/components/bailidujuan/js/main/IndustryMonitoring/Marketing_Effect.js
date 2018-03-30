@@ -1,4 +1,4 @@
-import { Arr, _this } from "@@@/js/inheritCore_extend.js"
+import { Arr, _this } from "bailidujuan/js/inheritCore_extend.js"
 export default res => new Arr([{
   data: {
     title: '展示数据',
@@ -7,7 +7,7 @@ export default res => new Arr([{
       line: 1, // 每到新的一行必写父级元素高
       height: '100%', // 例如此处
       res: res,
-      template: 'content/###'
+      template: 'content/IndustryMonitoring/Marketing_Effect'
     }
   },
   handle () {
