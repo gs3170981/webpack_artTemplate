@@ -7,7 +7,7 @@ export default res => new Arr([{
       line: 1, // 每到新的一行必写父级元素高
       height: '100%', // 例如此处
       res: res,
-      template: 'content/###'
+      template: 'content###'
     }
   },
   handle () {

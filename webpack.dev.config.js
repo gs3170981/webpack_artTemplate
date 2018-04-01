@@ -68,7 +68,6 @@ module.exports = {
       'main': _path('src/js/logic/main'),
       /* 警告：此标记不可删除（被依赖于build_auto构建工具） */
 // TODO START
-      "bailidujuan": _path("src/components/bailidujuan"),
       "chanyejiance": _path("src/components/chanyejiance"),
 // TODO END
     }

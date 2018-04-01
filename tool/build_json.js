@@ -44,7 +44,8 @@ const Fun = {
   },
   file_create (obj, callback) { // 文件创建
     // TODO 对创建的js文件进行模板引入路径配置，引到各自的模板文件中
-    fs.appendFile(obj.path, obj.data.replace(/###/, obj.href.substring(obj.href.lastIndexOf('main/') + 5, obj.href.length) + '/' + obj.base_href), 'utf8', (err) => {
+    console.log('找不到', obj.base_href)
+    fs.appendFile(obj.path, obj.data.replace(/###/, obj.href.substring((obj.href.lastIndexOf('js/main/') !== -1 ? obj.href.lastIndexOf('js/main/') + 7 : obj.href.lastIndexOf('js/main') + 7), obj.href.length) + '/' + obj.base_href), 'utf8', (err) => {
       if (err) {
         typeof (callback) === 'function' && callback(false)
         return console.error('创建文件：' + obj.name + '失败，错误码：', err)
@@ -129,22 +130,21 @@ const Fun = {
                 }, obj.art)
               }
             })
-            
+
 
           }
           break
         }
       }
       if (!is) { // 找不到
-        console.log('找不到', href)
         Fun.file_create({ // 不管是文件夹还是文件先创建JS或art文件
-          path: art === 'art' ? (objj.path + '/' + href + '.art.html') : (objj.path + '/' + href + '.js'),
+          path: objj.path + '/' + (art === 'art' ? (href + '.art.html') : (href + '.js')),
           data: objj.js_data.replace(/@@@/g, objj.name),
           name: objj.name,
           href: objj.path,
           base_href: href
         })
-        
+
         if (!f) { // 如果是文件夹的话，创建+递归
           Fun.Folder_create({
             path: objj.path + '/' + href,
@@ -165,10 +165,10 @@ const Fun = {
             }
           })
         }
-        
+
       }
       // 不管有没有找着只要是art状态下，都得判断module是否需要创建
-      
+
       if (art === 'art' && objj.data[i].module) {
         Fun.module_create({
           art: objj.data[i].module,
@@ -179,7 +179,7 @@ const Fun = {
     }
 
 //  for (let i = 0; i < path_f.length; i++) {
-//    
+//
 //  }
   }
 }
@@ -219,7 +219,7 @@ for (let i = 0; i < project.length; i++) {
         })
       }
     })
-    
+
     Fun.tpl_load({ // 模板文件构建依赖构建 --- 这两个分别写可异步执行
       url: path.baseArt,
       i: i
