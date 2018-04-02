@@ -1,6 +1,6 @@
 {
   "name": "itera-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "The iterative integration framework is provided by 'artTemplate' template grammar.'JQ' library and 'layui' library.",
   "author": "gs3170981",
   "main": "login.js",
