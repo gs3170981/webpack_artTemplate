@@ -1,6 +1,6 @@
 {
   "name": "itera-cli",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "The iterative integration framework is provided by 'artTemplate' template grammar.'JQ' library and 'layui' library.",
   "author": "gs3170981",
   "main": "login.js",
@@ -14,7 +14,7 @@
     "chanyejiance": "node option/build/chanyejiance && webpack --config webpack.prod.config.js --progress"
   },
   "bin": {
-    "geAsar": "bin/geAsar"
+    "itera-cli": "./bin/index.js"
   },
   "keywords": [
     "frame",
@@ -43,6 +43,7 @@
     "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.9",
     "file-loader": "^1.1.6",
+    "itera-cli": "^1.0.3",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "style-loader": "^0.19.1",
