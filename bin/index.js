@@ -1,71 +1,76 @@
 #!/usr/bin/env node
 
-//var program = require('commander');
-//
-//program.version('v' + require('../package.json').version)
-//     .description('Manipulate asar archive files')
-//
-//program.command('pack <dir> <output>')
-//     .alias('p')
-//     .description('create asar archive')
-//     .action(function (__dirpath, output) {
-//
-//       console.log(output+"文件成功生成");
-//     })
-//program.parse(process.argv)
-//
-//if (program.args.length === 0) {
-//program.help()
-//}
 
-var program = require('commander');
-
-//program
-//  .option('-v, --version', 'version')
-//  .option('-i, --init', 'structure start')
-//  .parse(process.argv);
-//
-//if (program.peppers)
-//
-//if (program.init) console.log('  - peppers');
-//if (program.pineapple) console.log('  - pineapple');
-//if (program.bbq) console.log('  - bbq');
-
- 
-//program
-////.version('v' + require('../package.json').version)
-//.option('-v', '--version', 'Current version view')
-//.option('-i', '--init', 'structure start')
-//.parse(process.argv)
-//
-//if (program.version) {
-//console.log('v' + require('../package.json').version)
-//}
-//if (program.init) {
-//console.log(123)
-//}
+const program = require('commander')
+const inquirer = require('inquirer')
 
 
+let _methods = {
+  init () { // 命令行配置初始化
+    program /* 相当于输入itera-cli -v */
+      .version('v' + require('../package.json').version)
+      .option('-v, --version', 'Current version view')
+      .option('-p, --peppers', 'set config path')
+      .option('-c, --config <path>', 'set config path')
 
-program
-  .version('v' + require('../package.json').version)
-  .option('-v, --version', 'Current version view')
-  .option('-p, --peppers', 'Add peppers')
-//.command('deploy')
-//.description('部署一个服务节点')
-//.action(function(name){
-//    console.log('Deploying "%s"', name);
-//})
-  .option('-b, --bbq-sauce', 'Add bbq sauce')
-  .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
-  .parse(process.argv);
- 
+    program /* 相当于输入itera-cli setup */
+      .command('setup')
+      .description('run remote setup commands')
+      .action(r => {
+        console.log('setup');
+      });
 
-if (program.peppers) {
-  console.log('  - peppers')
-} else if (program.pineapple) {
-  console.log('  - pineapple');
-} else if (program.bbqSauce) {
-  console.log('  - bbq');
+    program /* 相当于输入itera-cli install xxx */
+      .command('exec <cmd>')
+      .description('run the given remote command')
+      .action(cmd => {
+        console.log('exec "%s"', cmd);
+      });
+
+    program /* 相当于输入itera-cli install xxx1 xxx2 xxx3 */
+      .command('teardown <dir> [otherDirs...]')
+      .description('run teardown commands')
+      .action((dir, otherDirs) => {
+        console.log('dir "%s"', dir);
+        if (otherDirs) {
+          otherDirs.forEach(oDir => {
+            console.log('dir "%s"', oDir);
+          });
+        }
+      });
+
+    program /* 相当于输入itera-cli xxx (非规定的指令的回调) */
+      .command('*')
+      .description('deploy the given env')
+      .action(env => {
+        console.log('warning "%s"', env);
+      });
+    program.parse(process.argv)
+
+    this.option_Handle()
+  },
+  option_Handle () { // 命令行option处理
+    if (program.peppers) {
+      console.log('  - peppers');
+      inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'test',
+          message: 'Are you handsome?',
+          default: true
+        }
+      ]).then((answers) => {
+        console.log('END:')
+        console.log(answers)
+      })
+      return
+    } else if (program.pineapple) {
+      console.log('  - pineapple');
+    }
+  }
 }
- 
+_methods.init()
+
+
+
+
