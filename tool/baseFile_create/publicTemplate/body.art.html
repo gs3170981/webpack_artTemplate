@@ -48,9 +48,9 @@
     <div class="layui-side-scroll scorll_style1">
       <ul class="G-layui-nav-tree">
         <script>
-          (menu => {
+          (function (menu) {
             let str = ''
-            let menu_For = (t, more, path) => {
+            let menu_For = function (t, more, path) {
               more ? more += 10 : false
               for (let i = 0; i < t.length; i++) {
                 if (t[i].href[0] === '@') {

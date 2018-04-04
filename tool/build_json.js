@@ -68,6 +68,13 @@ const Fun = {
           }
         }
         if (!is) {
+          this.file_create({
+            base_href: obj.parentN + '-' + art[i],
+            path: obj.path + '/' + obj.parentN + '-' + art[i] + '.art.html',
+            data: obj.data,
+            name: obj.name,
+            href: obj.path
+          })
 //        console.log('无' + art[i])
         }
       }
@@ -172,7 +179,10 @@ const Fun = {
       if (art === 'art' && objj.data[i].module) {
         Fun.module_create({
           art: objj.data[i].module,
-          path: objj.path
+          path: objj.path,
+          data: objj.js_data,
+          name: objj.name,
+          parentN: href
         })
       }
 

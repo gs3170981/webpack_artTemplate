@@ -8,7 +8,7 @@
       "href": "!/IndustryMonitoring",
       "child": [
         {
-          "title": "消费类型统计",
+          "title": "消费类型统计Test",
           "href": "@/Consumption_Type1"
         }, {
           "title": "消费类型统计",

@@ -19,7 +19,7 @@ class Core_extend extends Core {
     this.name = this.name ? this.name : 'G' + Math.random().toString().slice(2) // 尽量要写自己name
     /* 这行可能会出BUG，就是该死的require解析机制FUCK!!! */
     // TODO START
-    const content = require('@@@/publicTemplate/' + build.template + '.art.html')
+    const content = require('chanyejiance/publicTemplate/' + build.template + '.art.html')
     // TODO END build_auto耦合
     let obj = $('.G-content .layui-row')
     if (build.width >= 6) {
@@ -39,7 +39,7 @@ class Core_extend extends Core {
       for (let i = 0; i < obj.length; i++) {
         let h = parseInt($(obj[i]).attr('data-line'))
         if (build.line === h) {
-          $(obj[i]).append("<div id='" + this.name + "' style='"+ build.css +";' class='" + build.klass + "'>" + content(this.data) + "</div>")
+          $(obj[i]).append("<div id='" + this.name + "' style='" + build.css +";height: "+ build.height +";' class='" + build.klass + "'>" + content(this.data) + "</div>")
           return
         }
       }
@@ -48,8 +48,8 @@ class Core_extend extends Core {
   }
 }
 class Arr_extend extends Arr {
-  constructor(data) {
-    super(data)
+  constructor(data, other) {
+    super(data, other)
   }
   mounted () {
     Fun.mounted_diy(this, Core_extend)
