@@ -49,16 +49,16 @@
       <ul class="G-layui-nav-tree">
         <script>
           (function (menu) {
-            let str = ''
-            let menu_For = function (t, more, path) {
+            var str = ''
+            var menu_For = function (t, more, path) {
               more ? more += 10 : false
-              for (let i = 0; i < t.length; i++) {
+              for (var i = 0; i < t.length; i++) {
                 if (t[i].href[0] === '@') {
                   continue
                 }
-                let child = t[i].child
-                let href = (path ? path : '') + t[i].href
-                let href_p = href.indexOf('!') !== -1 ? true : false
+                var child = t[i].child
+                var href = (path ? path : '') + t[i].href
+                var href_p = href.indexOf('!') !== -1 ? true : false
                 href = href_p ? '#' + href.substring(1, href.length) : href
                 str += '<li>' +
                 '<a class="G-item-title" style="'+ (more ? 'padding-left: '+ more +'px;' : '') +'" '+ (!href_p ? 'href="'+ href +'"' : '') +'>'+ (!more ? '<i class="fa fa-fw '+ t[i].fa +'" style="margin-right: 10px;"></i>' : '') + t[i].title + ( t[i].child ? '<i class="fa fa-angle-down" style="float: right;margin-right: 10px;"></i>' : '') +'</a>'
