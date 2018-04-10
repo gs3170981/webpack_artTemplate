@@ -19,7 +19,7 @@ class Core_extend extends Core {
     this.name = this.name ? this.name : 'G' + Math.random().toString().slice(2) // 尽量要写自己name
     /* 这行可能会出BUG，就是该死的require解析机制FUCK!!! */
     // TODO START
-    const content = require('chanyejiance/publicTemplate/' + build.template + '.art.html')
+    const content = require('@@@/publicTemplate/' + build.template + '.art.html')
     // TODO END build_auto耦合
     let obj = $('.G-content .layui-row')
     if (build.width >= 6) {

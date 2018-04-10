@@ -195,7 +195,7 @@ const Fun = {
 }
 let project = fs.readdirSync('./src/components/')
 
-for (let i = 0; i < project.length; i++) {
+for (let i = 0,_i = 0; i < project.length; i++, _i++) {
   let is = false
   for (let j = 0; j < FILE_NAME.length; j++) {
     if (project[i] === FILE_NAME[j] || project[i] === 'public') { // 这边还是要确保json配置文件跟目录文件一致
@@ -203,49 +203,54 @@ for (let i = 0; i < project.length; i++) {
       break
     }
   }
+  if (project[i] === 'public') {
+    _i--
+  }
   if (is && project[i] !== 'public') {
     // 加载JS-main
 //  let jsMain_create = fs.readdirSync('./src/components/' + project[i] + '/js/main')
-    let menu = CONFIG[i].menu // 菜单
-    let AloneRouter = CONFIG[i].AloneRouter // 独立路由
+    let menu = CONFIG[_i].menu // 菜单
+    let AloneRouter = CONFIG[_i].AloneRouter // 独立路由
 //  console.log(CONFIG[i])
 
     Fun.tpl_load({ // JS文件构建依赖构建
       url: path.baseJs,
+      _i: _i,
       i: i
     }, (is, obj, data) => { // 读取js模板
       if (is) {
         Fun.js_r({ // 对js/main下创建 --- 集成路由
-          data: CONFIG[obj.i].menu,
+          data: CONFIG[obj._i].menu,
           path: './src/components/' + project[obj.i] + '/js/main',
           js_data: data,
-          name: FILE_NAME[obj.i]
+          name: FILE_NAME[obj._i]
         })
         Fun.js_r({ // 对js/main下创建 --- 独立路由
-          data: CONFIG[obj.i].AloneRouter,
+          data: CONFIG[obj._i].AloneRouter,
           path: './src/components/' + project[obj.i] + '/js/main',
           js_data: data,
-          name: FILE_NAME[obj.i]
+          name: FILE_NAME[obj._i]
         })
       }
     })
 
     Fun.tpl_load({ // 模板文件构建依赖构建 --- 这两个分别写可异步执行
       url: path.baseArt,
+      _i: _i,
       i: i
     }, (is, obj, data) => { // 读取art模板
       if (is) {
         Fun.js_r({ // 对js/content下创建 --- 集成模板
-          data: CONFIG[obj.i].menu,
+          data: CONFIG[obj._i].menu,
           path: './src/components/' + project[obj.i] + '/publicTemplate/content',
           js_data: data,
-          name: FILE_NAME[obj.i]
+          name: FILE_NAME[obj._i]
         }, 'art') // 这里增加函数复杂性了，进入art模板创建判断
         Fun.js_r({ // 对js/content下创建 --- 独立模板
-          data: CONFIG[obj.i].AloneRouter,
+          data: CONFIG[obj._i].AloneRouter,
           path: './src/components/' + project[obj.i] + '/publicTemplate/content',
           js_data: data,
-          name: FILE_NAME[obj.i]
+          name: FILE_NAME[obj._i]
         }, 'art')
       }
     })
